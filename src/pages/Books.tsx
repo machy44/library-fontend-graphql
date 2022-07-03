@@ -1,8 +1,12 @@
+import { useQuery } from '@apollo/client';
+import { ALL_BOOKS } from '../queries';
 import { IBook, Props } from '../types';
 
 type BooksProps = Props;
 
 const Books = (props: BooksProps) => {
+  const { data } = useQuery<{ allBooks: IBook[] }>(ALL_BOOKS);
+
   if (!props.show) {
     return null;
   }
@@ -20,7 +24,7 @@ const Books = (props: BooksProps) => {
             <th>author</th>
             <th>published</th>
           </tr>
-          {books?.map((a) => (
+          {data?.allBooks.map((a) => (
             <tr key={a.title}>
               <td>{a.title}</td>
               <td>{a.author}</td>

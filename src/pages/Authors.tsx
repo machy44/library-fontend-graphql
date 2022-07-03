@@ -5,13 +5,12 @@ import { useQuery } from '@apollo/client';
 type AuthorsProps = Props;
 
 const Authors = (props: AuthorsProps) => {
-  const { data } = useQuery<IAuthor[]>(ALL_AUTHORS);
+  const { data } = useQuery<{ allAuthors: IAuthor[] }>(ALL_AUTHORS);
 
   if (!props.show) {
     return null;
   }
 
-  // @ts-ignore
   if (data?.allAuthors === undefined) return null;
 
   return (
@@ -24,9 +23,8 @@ const Authors = (props: AuthorsProps) => {
             <th>born</th>
             <th>books</th>
           </tr>
-          {/* @ts-ignore */}
-          {data?.allAuthors.map((a) => (
-            <tr key={a.name}>
+          {data.allAuthors.map((a) => (
+            <tr key={a.id}>
               <td>{a.name}</td>
               <td>{a.born}</td>
               <td>{a.bookCount}</td>
