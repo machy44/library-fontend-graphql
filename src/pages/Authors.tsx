@@ -1,15 +1,18 @@
 import { IAuthor, Props } from '../types';
 import { ALL_AUTHORS } from '../queries';
 import { useQuery } from '@apollo/client';
+import { Spinner } from '../ui/Spinner';
 
 type AuthorsProps = Props;
 
 const Authors = (props: AuthorsProps) => {
-  const { data } = useQuery<{ allAuthors: IAuthor[] }>(ALL_AUTHORS);
+  const { data, loading } = useQuery<{ allAuthors: IAuthor[] }>(ALL_AUTHORS);
 
   if (!props.show) {
     return null;
   }
+
+  if (loading) return <Spinner />;
 
   if (data?.allAuthors === undefined) return null;
 

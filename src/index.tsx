@@ -1,6 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App';
+import { ChakraProvider } from '@chakra-ui/react';
 import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 const client = new ApolloClient({
@@ -10,9 +11,12 @@ const client = new ApolloClient({
   }),
 });
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container as HTMLElement);
+root.render(
   <ApolloProvider client={client}>
-    <App />
+    <ChakraProvider>
+      <App />
+    </ChakraProvider>
   </ApolloProvider>,
-  document.getElementById('root'),
 );
