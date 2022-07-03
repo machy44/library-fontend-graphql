@@ -1,14 +1,18 @@
 import { IAuthor, Props } from '../types';
+import { ALL_AUTHORS } from '../queries';
+import { useQuery } from '@apollo/client';
 
 type AuthorsProps = Props;
 
 const Authors = (props: AuthorsProps) => {
-  if (!props.show) {
-    return null
-  }
-  const authors: IAuthor[] | undefined = undefined
+  const { data } = useQuery<IAuthor[]>(ALL_AUTHORS);
 
-  if(authors === undefined) return null;
+  if (!props.show) {
+    return null;
+  }
+
+  // @ts-ignore
+  if (data?.allAuthors === undefined) return null;
 
   return (
     <div>
@@ -20,7 +24,8 @@ const Authors = (props: AuthorsProps) => {
             <th>born</th>
             <th>books</th>
           </tr>
-          {authors.map((a) => (
+          {/* @ts-ignore */}
+          {data?.allAuthors.map((a) => (
             <tr key={a.name}>
               <td>{a.name}</td>
               <td>{a.born}</td>
@@ -30,7 +35,7 @@ const Authors = (props: AuthorsProps) => {
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
-export default Authors
+export default Authors;

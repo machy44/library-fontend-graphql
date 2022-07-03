@@ -2,13 +2,12 @@ import { IBook, Props } from '../types';
 
 type BooksProps = Props;
 
-
 const Books = (props: BooksProps) => {
   if (!props.show) {
-    return null
+    return null;
   }
 
-  const books: IBook[] = []
+  const books: IBook[] = [];
 
   return (
     <div>
@@ -31,7 +30,7 @@ const Books = (props: BooksProps) => {
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
-export default Books
+export default Books;
