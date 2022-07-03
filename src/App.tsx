@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Authors from './components/Authors';
-import Books from './components/Books';
-import NewBook from './components/NewBook';
+import Authors from './pages/Authors';
+import Books from './pages/Books';
+import NewBook from './pages/NewBook';
 
 const App = () => {
   const [page, setPage] = useState('authors');
