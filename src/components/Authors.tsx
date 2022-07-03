@@ -1,8 +1,14 @@
-const Authors = (props) => {
+import { IAuthor, Props } from '../types';
+
+type AuthorsProps = Props;
+
+const Authors = (props: AuthorsProps) => {
   if (!props.show) {
     return null
   }
-  const authors = []
+  const authors: IAuthor[] | undefined = undefined
+
+  if(authors === undefined) return null;
 
   return (
     <div>

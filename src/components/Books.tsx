@@ -1,9 +1,14 @@
-const Books = (props) => {
+import { IBook, Props } from '../types';
+
+type BooksProps = Props;
+
+
+const Books = (props: BooksProps) => {
   if (!props.show) {
     return null
   }
 
-  const books = []
+  const books: IBook[] = []
 
   return (
     <div>
@@ -16,7 +21,7 @@ const Books = (props) => {
             <th>author</th>
             <th>published</th>
           </tr>
-          {books.map((a) => (
+          {books?.map((a) => (
             <tr key={a.title}>
               <td>{a.title}</td>
               <td>{a.author}</td>

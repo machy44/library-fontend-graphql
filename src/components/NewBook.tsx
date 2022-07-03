@@ -1,17 +1,20 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import { IBook, Props } from '../types';
 
-const NewBook = (props) => {
+type BooksProps = Props;
+
+const NewBook = (props: BooksProps) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [published, setPublished] = useState('')
   const [genre, setGenre] = useState('')
-  const [genres, setGenres] = useState([])
+  const [genres, setGenres] = useState<IBook["genres"]>([])
 
   if (!props.show) {
     return null
   }
 
-  const submit = async (event) => {
+  const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     console.log('add book...')
