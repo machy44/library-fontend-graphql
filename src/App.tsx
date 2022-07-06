@@ -1,16 +1,21 @@
-import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Authors from './pages/Authors';
 import Books from './pages/Books';
 import NewBook from './pages/NewBook';
-import { Menu, MenuItem, MenuList } from './ui/Menu';
+import { Menu, MenuItem } from './ui/Menu';
 import { NavLink } from './ui/NavLink';
 
 const AppMenu = () => (
   <Menu>
-    <MenuItem>authors</MenuItem>
-    <MenuItem>books</MenuItem>
-    <MenuItem>add book</MenuItem>
+    <MenuItem>
+      <NavLink to="/" text="authors" />
+    </MenuItem>
+    <MenuItem>
+      <NavLink to="/books" text="books" />
+    </MenuItem>
+    <MenuItem>
+      <NavLink to="/add" text="add book" />
+    </MenuItem>
   </Menu>
 );
 
