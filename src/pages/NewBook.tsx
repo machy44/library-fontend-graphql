@@ -10,10 +10,6 @@ const NewBook = (props: BooksProps) => {
   const [genre, setGenre] = useState('');
   const [genres, setGenres] = useState<IBook['genres']>([]);
 
-  if (!props.show) {
-    return null;
-  }
-
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 

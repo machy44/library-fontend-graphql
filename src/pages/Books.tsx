@@ -7,10 +7,6 @@ type BooksProps = Props;
 const Books = (props: BooksProps) => {
   const { data } = useQuery<{ allBooks: IBook[] }>(ALL_BOOKS);
 
-  if (!props.show) {
-    return null;
-  }
-
   const books: IBook[] = [];
 
   return (

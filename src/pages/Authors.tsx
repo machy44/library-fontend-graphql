@@ -8,10 +8,6 @@ type AuthorsProps = Props;
 const Authors = (props: AuthorsProps) => {
   const { data, loading } = useQuery<{ allAuthors: IAuthor[] }>(ALL_AUTHORS);
 
-  if (!props.show) {
-    return null;
-  }
-
   if (loading) return <Spinner />;
 
   if (data?.allAuthors === undefined) return null;

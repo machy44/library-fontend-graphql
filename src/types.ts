@@ -13,6 +13,4 @@ export interface IBook {
   genres: string[];
 }
 
-export interface Props {
-  show: boolean;
-}
+export interface Props {}
