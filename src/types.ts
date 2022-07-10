@@ -13,8 +13,12 @@ export interface IBook {
   genres: string[];
 }
 
-export interface Props {}
-
 export interface ChildrenProps {
   children: React.ReactNode;
 }
+
+export interface ClassNameProps {
+  className: string;
+}
+
+export type ClassNameChildrenProps = ChildrenProps & Partial<ClassNameProps>;

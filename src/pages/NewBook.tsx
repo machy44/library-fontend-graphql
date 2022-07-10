@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { IBook, Props } from '../types';
+import { IBook } from '../types';
+import { Card } from '../ui/Card';
 
-type BooksProps = Props;
-
-const NewBook = (props: BooksProps) => {
+const NewBook: React.FC = (props) => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [published, setPublished] = useState('');
@@ -28,7 +27,7 @@ const NewBook = (props: BooksProps) => {
   };
 
   return (
-    <div>
+    <Card>
       <form onSubmit={submit}>
         <div>
           title
@@ -55,7 +54,7 @@ const NewBook = (props: BooksProps) => {
         <div>genres: {genres.join(' ')}</div>
         <button type="submit">create book</button>
       </form>
-    </div>
+    </Card>
   );
 };
 

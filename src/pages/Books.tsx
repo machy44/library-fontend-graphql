@@ -1,17 +1,14 @@
 import { useQuery } from '@apollo/client';
 import { ALL_BOOKS } from '../queries';
-import { IBook, Props } from '../types';
+import { IBook } from '../types';
+import { Card } from '../ui/Card';
 import { Title } from '../ui/Text';
 
-type BooksProps = Props;
-
-const Books = (props: BooksProps) => {
+const Books: React.FC = () => {
   const { data } = useQuery<{ allBooks: IBook[] }>(ALL_BOOKS);
 
-  const books: IBook[] = [];
-
   return (
-    <div>
+    <Card>
       <Title>books</Title>
 
       <table>
@@ -30,7 +27,7 @@ const Books = (props: BooksProps) => {
           ))}
         </tbody>
       </table>
-    </div>
+    </Card>
   );
 };
 

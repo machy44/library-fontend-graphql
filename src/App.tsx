@@ -15,7 +15,7 @@ const AppMenu = () => (
 
 const PageLayout: React.FC = () => {
   return (
-    <div className="flex m-10">
+    <div className="flex m-10 justify-center">
       <Outlet />
     </div>
   );
