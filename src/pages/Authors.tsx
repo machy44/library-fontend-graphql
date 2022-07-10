@@ -2,6 +2,7 @@ import { IAuthor, Props } from '../types';
 import { ALL_AUTHORS } from '../queries';
 import { useQuery } from '@apollo/client';
 import { Spinner } from '../ui/Spinner';
+import { Title } from '../ui/Text';
 
 type AuthorsProps = Props;
 
@@ -14,7 +15,7 @@ const Authors = (props: AuthorsProps) => {
 
   return (
     <div>
-      <h2>authors</h2>
+      <Title>authors</Title>
       <table>
         <tbody>
           <tr>

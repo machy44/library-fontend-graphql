@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { ALL_BOOKS } from '../queries';
 import { IBook, Props } from '../types';
+import { Title } from '../ui/Text';
 
 type BooksProps = Props;
 
@@ -11,7 +12,7 @@ const Books = (props: BooksProps) => {
 
   return (
     <div>
-      <h2>books</h2>
+      <Title>books</Title>
 
       <table>
         <tbody>
