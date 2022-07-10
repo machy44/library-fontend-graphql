@@ -3,6 +3,7 @@ import { ALL_AUTHORS } from '../queries';
 import { useQuery } from '@apollo/client';
 import { Spinner } from '../ui/Spinner';
 import { Title } from '../ui/Text';
+import { Card } from '../ui/Card';
 
 type AuthorsProps = Props;
 
@@ -14,7 +15,7 @@ const Authors = (props: AuthorsProps) => {
   if (data?.allAuthors === undefined) return null;
 
   return (
-    <div>
+    <Card>
       <Title>authors</Title>
       <table>
         <tbody>
@@ -32,7 +33,7 @@ const Authors = (props: AuthorsProps) => {
           ))}
         </tbody>
       </table>
-    </div>
+    </Card>
   );
 };
 
