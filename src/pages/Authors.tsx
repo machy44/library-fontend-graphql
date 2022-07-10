@@ -14,7 +14,7 @@ const Authors: React.FC = () => {
   if (data?.allAuthors === undefined) return null;
 
   return (
-    <Card>
+    <Card className="grid gap-y-8">
       <Title className="text-center">authors</Title>
       <Table>
         <THead>
