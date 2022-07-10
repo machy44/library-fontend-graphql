@@ -14,3 +14,7 @@ export interface IBook {
 }
 
 export interface Props {}
+
+export interface ChildrenProps {
+  children: React.ReactNode;
+}
