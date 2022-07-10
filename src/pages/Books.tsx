@@ -2,8 +2,10 @@ import { useQuery } from '@apollo/client';
 import { ALL_BOOKS } from '../queries';
 import { IBook } from '../types';
 import { Card } from '../ui/Card';
-import { Table, THead, Tr, Th, Tbody, Td } from '../ui/Table';
+import { Table } from '../ui/Table';
 import { Title } from '../ui/Text';
+
+const { Thead, Tr, Th, Tbody, Td } = Table;
 
 const Books: React.FC = () => {
   const { data } = useQuery<{ allBooks: IBook[] }>(ALL_BOOKS);
@@ -12,13 +14,13 @@ const Books: React.FC = () => {
     <Card>
       <Title className="text-center">books</Title>
       <Table>
-        <THead>
+        <Thead>
           <Tr>
             <Th />
             <Th>author</Th>
             <Th>published</Th>
           </Tr>
-        </THead>
+        </Thead>
         <Tbody>
           {data?.allBooks.map((a) => (
             <Tr key={a.title}>

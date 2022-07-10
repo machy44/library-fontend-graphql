@@ -4,7 +4,9 @@ import { useQuery } from '@apollo/client';
 import { Spinner } from '../ui/Spinner';
 import { Title } from '../ui/Text';
 import { Card } from '../ui/Card';
-import { Table, Tbody, Td, Th, THead, Tr } from '../ui/Table';
+import { Table } from '../ui/Table';
+
+const { Thead, Tr, Th, Tbody, Td } = Table;
 
 const Authors: React.FC = () => {
   const { data, loading } = useQuery<{ allAuthors: IAuthor[] }>(ALL_AUTHORS);
@@ -17,13 +19,13 @@ const Authors: React.FC = () => {
     <Card className="grid gap-y-8">
       <Title className="text-center">authors</Title>
       <Table>
-        <THead>
+        <Thead>
           <Tr>
             <Th />
             <Th>born</Th>
             <Th>books</Th>
           </Tr>
-        </THead>
+        </Thead>
         <Tbody>
           {data.allAuthors.map((a) => (
             <Tr key={a.id}>
