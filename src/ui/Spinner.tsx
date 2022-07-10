@@ -1,7 +1,3 @@
-import { Spinner as CSpinner } from '@chakra-ui/react';
-
 export const Spinner = () => {
-  return (
-    <CSpinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="blue.500" size="xl" />
-  );
+  return <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24" />;
 };
