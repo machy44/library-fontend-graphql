@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { IBook } from '../types';
 import { Card } from '../ui/Card';
+import { Input } from '../ui/Input';
+import { Label } from '../ui/Label';
 
 const NewBook: React.FC = (props) => {
   const [title, setTitle] = useState('');
@@ -29,6 +31,13 @@ const NewBook: React.FC = (props) => {
   return (
     <Card>
       <form onSubmit={submit}>
+        <Label htmlFor="username">Username</Label>
+        <Input id="username" placeholder="Username" />
+        <Label htmlFor="title">Title</Label>
+        <Input id="title" placeholder="Title" />
+        <Label htmlFor="published">Published</Label>
+        <Input id="published" placeholder="Published" type="number" />
+
         <div>
           title
           <input value={title} onChange={({ target }) => setTitle(target.value)} />
