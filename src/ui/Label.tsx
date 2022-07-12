@@ -1,13 +1,16 @@
 import React from 'react';
-import { ChildrenProps } from '../types';
+import classNames from 'classnames';
+import { ClassNameChildrenProps } from '../types';
 
-interface LabelProps extends ChildrenProps {
+interface LabelProps extends ClassNameChildrenProps {
   htmlFor: string;
 }
 
-export const Label: React.FC<LabelProps> = ({ htmlFor, children }) => {
+export const Label: React.FC<LabelProps> = ({ htmlFor, children, className }) => {
   return (
-    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor={htmlFor}>
+    <label
+      className={classNames('block text-gray-700 text-sm font-bold mb-2', className)}
+      htmlFor={htmlFor}>
       {children}
     </label>
   );

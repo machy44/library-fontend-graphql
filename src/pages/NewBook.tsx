@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { IBook } from '../types';
+import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
 import { Input } from '../ui/Input';
 import { Label } from '../ui/Label';
+import { Text } from '../ui/Text';
 
 const NewBook: React.FC = (props) => {
   const [title, setTitle] = useState('');
@@ -31,37 +33,55 @@ const NewBook: React.FC = (props) => {
   return (
     <Card>
       <form onSubmit={submit}>
-        <Label htmlFor="username">Username</Label>
-        <Input id="username" placeholder="Username" />
-        <Label htmlFor="title">Title</Label>
-        <Input id="title" placeholder="Title" />
-        <Label htmlFor="published">Published</Label>
-        <Input id="published" placeholder="Published" type="number" />
-
-        <div>
-          title
-          <input value={title} onChange={({ target }) => setTitle(target.value)} />
-        </div>
-        <div>
-          author
-          <input value={author} onChange={({ target }) => setAuthor(target.value)} />
-        </div>
-        <div>
-          published
-          <input
-            type="number"
-            value={published}
-            onChange={({ target }) => setPublished(target.value)}
+        <Label htmlFor="title" className="mt-2">
+          Title
+        </Label>
+        <Input
+          id="title"
+          placeholder="Title"
+          value={title}
+          onChange={({ target }) => setTitle(target.value)}
+        />
+        <Label htmlFor="author" className="mt-2">
+          Author
+        </Label>
+        <Input
+          id="author"
+          placeholder="Author"
+          value={author}
+          onChange={({ target }) => setAuthor(target.value)}
+        />
+        <Label htmlFor="published" className="mt-2">
+          Published
+        </Label>
+        <Input
+          id="published"
+          placeholder="Published"
+          type="number"
+          value={published}
+          onChange={({ target }) => setPublished(target.value)}
+        />
+        <Label htmlFor="genre" className="mt-2">
+          Genre
+        </Label>
+        <div className="grid gap-x-8 grid-cols-3 box-content">
+          <Input
+            value={genre}
+            id="genre"
+            placeholder="Genre"
+            onChange={({ target }) => setGenre(target.value)}
+            className="col-span-2"
           />
-        </div>
-        <div>
-          <input value={genre} onChange={({ target }) => setGenre(target.value)} />
-          <button onClick={addGenre} type="button">
+          <Button onClick={addGenre} type="button">
             add genre
-          </button>
+          </Button>
         </div>
-        <div>genres: {genres.join(' ')}</div>
-        <button type="submit">create book</button>
+        <div className="my-4">
+          <Text>genres: {genres.join(' ')}</Text>
+        </div>
+        <Button type="submit" className="mt-4 w-full">
+          create book
+        </Button>
       </form>
     </Card>
   );
