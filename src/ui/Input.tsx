@@ -6,7 +6,7 @@ interface InputProps extends Partial<ClassNameProps> {
   id: string;
   placeholder: string;
   type?: string;
-  value: string;
+  value?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
@@ -17,6 +17,7 @@ export const Input: React.FC<InputProps> = ({
   onChange,
   className,
   value,
+  ...otherProps
 }) => {
   return (
     <input
@@ -29,6 +30,7 @@ export const Input: React.FC<InputProps> = ({
       placeholder={placeholder}
       onChange={onChange}
       value={value}
+      {...otherProps}
     />
   );
 };
