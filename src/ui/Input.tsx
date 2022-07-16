@@ -2,15 +2,14 @@ import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import { ClassNameProps } from '../types';
 
-interface InputProps extends Partial<ClassNameProps> {
+export interface InputProps extends Partial<ClassNameProps> {
   // id: string;
   placeholder: string;
   type?: string;
-  error: string | null;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type = 'text', error, ...props }, ref) => {
+  ({ className, type = 'text', ...props }, ref) => {
     return (
       <>
         <input
@@ -22,11 +21,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           type={type}
           {...props}
         />
-        {error && (
-          <p className="peer-invalid:visible text-red-700 font-light">
-            Please enter a valid email address
-          </p>
-        )}
       </>
     );
   },

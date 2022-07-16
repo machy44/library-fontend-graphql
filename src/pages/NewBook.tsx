@@ -3,11 +3,11 @@ import { useForm } from 'react-hook-form';
 import { IBook } from '../types';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
-import { Input } from '../ui/Input';
 import { Label } from '../ui/Label';
 import { Text } from '../ui/Text';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { FormInput } from '../ui/FormInput';
 
 const schemaValidation = yup
   .object()
@@ -65,11 +65,15 @@ const NewBook: React.FC = (props) => {
           Title
         </Label>
 
-        <Input {...register('title')} placeholder="Title" error={errors.title?.message || null} />
+        <FormInput
+          {...register('title')}
+          placeholder="Title"
+          error={errors.title?.message || null}
+        />
         <Label htmlFor="author" className="mt-2">
           Author
         </Label>
-        <Input
+        <FormInput
           placeholder="Author"
           {...register('author')}
           error={errors.author?.message || null}
@@ -77,7 +81,7 @@ const NewBook: React.FC = (props) => {
         <Label htmlFor="published" className="mt-2">
           Published
         </Label>
-        <Input
+        <FormInput
           placeholder="Published"
           {...register('published')}
           type="number"
