@@ -1,36 +1,33 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import { ClassNameProps } from '../types';
 
 interface InputProps extends Partial<ClassNameProps> {
-  id: string;
+  // id: string;
   placeholder: string;
   type?: string;
-  value?: string;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  error: string | null;
 }
 
-export const Input: React.FC<InputProps> = ({
-  id,
-  type = 'text',
-  placeholder,
-  onChange,
-  className,
-  value,
-  ...otherProps
-}) => {
-  return (
-    <input
-      className={classNames(
-        'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
-        className,
-      )}
-      id={id}
-      type={type}
-      placeholder={placeholder}
-      onChange={onChange}
-      value={value}
-      {...otherProps}
-    />
-  );
-};
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type = 'text', error, ...props }, ref) => {
+    return (
+      <>
+        <input
+          ref={ref}
+          className={classNames(
+            'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
+            className,
+          )}
+          type={type}
+          {...props}
+        />
+        {error && (
+          <p className="peer-invalid:visible text-red-700 font-light">
+            Please enter a valid email address
+          </p>
+        )}
+      </>
+    );
+  },
+);
