@@ -2,12 +2,11 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { IBook } from '../types';
 import { Button } from '../ui/Button';
-import { Card } from '../ui/Card';
 import { Label } from '../ui/Label';
-import { Text } from '../ui/Text';
 import * as yup from 'yup';
+import get from 'lodash.get';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FormInput } from '../ui/FormInput';
+import { Form } from '../ui/Form';
 
 const schemaValidation = yup
   .object()
@@ -59,38 +58,37 @@ const NewBook: React.FC = (props) => {
   };
 
   return (
-    <Card>
-      <form onSubmit={handleSubmit(submit)}>
-        <Label htmlFor="title" className="mt-2">
-          Title
-        </Label>
+    <Form onSubmit={handleSubmit(submit)}>
+      <Label htmlFor="title" className="mt-2">
+        Title
+      </Label>
 
-        <FormInput
-          {...register('title')}
-          placeholder="Title"
-          error={errors.title?.message || null}
-        />
-        <Label htmlFor="author" className="mt-2">
-          Author
-        </Label>
-        <FormInput
-          placeholder="Author"
-          {...register('author')}
-          error={errors.author?.message || null}
-        />
-        <Label htmlFor="published" className="mt-2">
-          Published
-        </Label>
-        <FormInput
-          placeholder="Published"
-          {...register('published')}
-          type="number"
-          error={errors.published?.message || null}
-        />
-        {/* <Label htmlFor="genre" className="mt-2">
+      <Form.Input
+        {...register('title')}
+        placeholder="Title"
+        error={get(errors, 'title.message') || null}
+      />
+      <Label htmlFor="author" className="mt-2">
+        Author
+      </Label>
+      <Form.Input
+        placeholder="Author"
+        {...register('author')}
+        error={get(errors, 'author.message') || null}
+      />
+      <Label htmlFor="published" className="mt-2">
+        Published
+      </Label>
+      <Form.Input
+        placeholder="Published"
+        {...register('published')}
+        type="number"
+        error={get(errors, 'published.message') || null}
+      />
+      {/* <Label htmlFor="genre" className="mt-2">
           Genre
         </Label> */}
-        {/* <div className="grid gap-x-8 grid-cols-3 box-content">
+      {/* <div className="grid gap-x-8 grid-cols-3 box-content">
           <Input
             id="genre"
             placeholder="Genre"
@@ -105,11 +103,10 @@ const NewBook: React.FC = (props) => {
         <div className="my-4">
           <Text>genres: {genres.join(' ')}</Text>
         </div> */}
-        <Button type="submit" className="mt-4 w-full">
-          create book
-        </Button>
-      </form>
-    </Card>
+      <Button type="submit" className="mt-4 w-full">
+        create book
+      </Button>
+    </Form>
   );
 };
 
