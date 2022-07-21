@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { ClassNameProps } from '../types';
 
 export interface InputProps extends Partial<ClassNameProps> {
+  id?: string;
   placeholder: string;
   type?: string;
 }

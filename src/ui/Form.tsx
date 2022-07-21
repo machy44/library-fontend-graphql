@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { InputProps, Input } from './Input';
 import { ChildrenProps } from '../types';
 
@@ -6,14 +6,16 @@ interface FormInputProps extends InputProps {
   error: string | null;
 }
 
-const FormInput: React.FC<FormInputProps> = ({ error, ...props }) => {
+const FormInput: React.FC<FormInputProps> = forwardRef(({ error, ...props }, ref) => {
+  console.log(props);
   return (
     <>
-      <Input {...props} />
+      {/* @ts-ignore */}
+      <Input {...props} ref={ref} />
       {error && <p className="peer-invalid:visible text-red-700 font-light">{error}</p>}
     </>
   );
-};
+});
 
 type FormProps = React.FC<ChildrenProps & { onSubmit: React.FormEventHandler<HTMLFormElement> }> & {
   Input: typeof FormInput;
