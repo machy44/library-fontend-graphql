@@ -7,14 +7,16 @@ import { Text } from '../ui/Text';
 import * as yup from 'yup';
 import get from 'lodash.get';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from '@apollo/client';
 import { Form } from '../ui/Form';
+import { ADD_BOOK } from '../mutations';
 
 const schemaValidation = yup
   .object()
   .shape({
     title: yup.string().required('Title is required'),
     author: yup.string().min(3, 'Minimum length should be 3').required('Author is required'),
-    published: yup.number().min(4, 'must be 4 characters long').required('Published is required'),
+    published: yup.number().min(4, 'Must be 4 characters long').required('Published is required'),
   })
   .required();
 
@@ -25,7 +27,12 @@ type MyInputTypes = {
   genre: string;
 };
 
+type Genres = {
+  genres: MyInputTypes['genre'][];
+};
+
 const NewBook: React.FC = (props) => {
+  const [addBook] = useMutation<Omit<MyInputTypes, 'genre'> | Genres>(ADD_BOOK);
   const [genres, setGenres] = useState<IBook['genres']>([]);
   const {
     register,
@@ -40,20 +47,12 @@ const NewBook: React.FC = (props) => {
 
   console.log('watch', watch('genre'));
 
-  // const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
+  const submit = (data: MyInputTypes) => {
+    const { title, published, author } = data;
 
-  //   console.log('add book...');
-
-  //   setTitle('');
-  //   setPublished('');
-  //   setAuthor('');
-  //   setGenres([]);
-  //   setGenre('');
-  // };
-
-  const submit = (data: any) => {
-    console.log({ data }, genres);
+    addBook({
+      variables: { title, published, author, genres },
+    });
     reset();
     setGenres([]);
   };
