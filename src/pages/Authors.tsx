@@ -9,9 +9,12 @@ import { Table } from '../ui/Table';
 const { Thead, Tr, Th, Tbody, Td } = Table;
 
 const Authors: React.FC = () => {
-  const { data, loading } = useQuery<{ allAuthors: IAuthor[] }>(ALL_AUTHORS);
+  const { data, loading, error } = useQuery<{ allAuthors: IAuthor[] }>(ALL_AUTHORS);
 
   if (loading) return <Spinner />;
+  if (error) {
+    throw new Error(error.message);
+  }
 
   if (data?.allAuthors === undefined) return null;
 

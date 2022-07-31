@@ -8,7 +8,11 @@ import { Title } from '../ui/Text';
 const { Thead, Tr, Th, Tbody, Td } = Table;
 
 const Books: React.FC = () => {
-  const { data } = useQuery<{ allBooks: IBook[] }>(ALL_BOOKS);
+  const { data, error } = useQuery<{ allBooks: IBook[] }>(ALL_BOOKS);
+
+  if (error) {
+    throw new Error(error.message);
+  }
 
   return (
     <Card>
