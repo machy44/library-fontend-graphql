@@ -6,11 +6,9 @@ interface FormInputProps extends InputProps {
   error: string | null;
 }
 
-const FormInput: React.FC<FormInputProps> = forwardRef(({ error, ...props }, ref) => {
-  console.log(props);
+const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({ error, ...props }, ref) => {
   return (
     <>
-      {/* @ts-ignore */}
       <Input {...props} ref={ref} />
       {error && <p className="peer-invalid:visible text-red-700 font-light">{error}</p>}
     </>
