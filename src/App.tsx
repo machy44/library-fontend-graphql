@@ -2,6 +2,7 @@ import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 import Authors from './pages/Authors';
 import Books from './pages/Books';
 import NewBook from './pages/NewBook';
+import { ErrorBoundary } from './ui/ErrorBoundary';
 
 import { Link } from './ui/Link';
 
@@ -28,8 +29,22 @@ const App = () => {
         <AppMenu />
         <Routes>
           <Route element={<PageLayout />}>
-            <Route path="/" element={<Authors />} />
-            <Route path="/books" element={<Books />} />
+            <Route
+              path="/"
+              element={
+                <ErrorBoundary>
+                  <Authors />
+                </ErrorBoundary>
+              }
+            />
+            <Route
+              path="/books"
+              element={
+                <ErrorBoundary>
+                  <Books />
+                </ErrorBoundary>
+              }
+            />
             <Route path="/add" element={<NewBook />} />
           </Route>
         </Routes>
