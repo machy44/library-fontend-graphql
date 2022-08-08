@@ -22,3 +22,5 @@ export interface ClassNameProps {
 }
 
 export type ClassNameChildrenProps = ChildrenProps & Partial<ClassNameProps>;
+
+export type UnArray<T> = T extends (infer U)[] ? U : T;

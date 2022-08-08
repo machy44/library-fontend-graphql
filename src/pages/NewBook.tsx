@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { IBook } from '../types';
+import { IBook, UnArray } from '../types';
 import { Button } from '../ui/Button';
 import { Label } from '../ui/Label';
 import { Text } from '../ui/Text';
@@ -11,58 +11,57 @@ import { useMutation } from '@apollo/client';
 import { Form } from '../ui/Form';
 import { ADD_BOOK } from '../mutations';
 
-const schemaValidation = yup
-  .object()
-  .shape({
-    title: yup.string().required('Title is required'),
-    author: yup.string().min(3, 'Minimum length should be 3').required('Author is required'),
-    published: yup.number().min(4, 'Must be 4 characters long').required('Published is required'),
-  })
-  .required();
+const schemaValidation = yup.object().shape({
+  title: yup.string().required('Title is required'),
+  author: yup.string().min(3, 'Minimum length should be 3').required('Author is required'),
+  published: yup
+    .number()
+    .min(4, 'Must be 4 characters long')
+    .required('Published is required')
+    .positive()
+    .integer(),
+  genres: yup.array().min(1).of(yup.string()),
+});
 
-type MyInputTypes = {
-  title: string;
-  author: string;
-  published: string;
-  genre: string;
-};
-
-type Genres = {
-  genres: MyInputTypes['genre'][];
+type MyInputTypes = Omit<IBook, 'id'> & {
+  genre: UnArray<IBook['genres']>;
 };
 
 const NewBook: React.FC = (props) => {
-  const [addBook] = useMutation<Omit<MyInputTypes, 'genre'> | Genres>(ADD_BOOK);
-  const [genres, setGenres] = useState<IBook['genres']>([]);
+  const [addBook] = useMutation<MyInputTypes>(ADD_BOOK);
+
   const {
     register,
     handleSubmit,
-    watch,
     getValues,
     reset,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<MyInputTypes>({
     resolver: yupResolver(schemaValidation),
+    defaultValues: {
+      genre: '',
+      genres: [],
+    },
   });
 
-  console.log('watch', watch('genre'));
-
   const submit = (data: MyInputTypes) => {
-    const { title, published, author } = data;
-
+    console.log({ data });
+    const { title, published, author, genres } = data;
     addBook({
       variables: { title, published, author, genres },
     });
     reset();
-    setGenres([]);
   };
 
   const addGenre = () => {
-    setGenres(genres.concat(getValues('genre')));
-    reset({
-      genre: '',
-    });
+    const newValue = [...getValues('genres'), getValues('genre')];
+    setValue('genres', newValue);
+    setValue('genre', '');
   };
+
+  watch('genres');
 
   return (
     <Form onSubmit={handleSubmit(submit)}>
@@ -101,14 +100,17 @@ const NewBook: React.FC = (props) => {
           placeholder="Genre"
           className="col-span-2"
           {...register('genre')}
-          error={null}
+          error={get(errors, 'genres.message') || null}
         />
         <Button onClick={addGenre} type="button">
           add genre
         </Button>
       </div>
       <div className="my-4">
-        <Text>genres: {genres.join(' ')}</Text>
+        <Text {...register('genres')}>
+          genres:
+          {getValues('genres')?.join(' ')}
+        </Text>
       </div>
       <Button type="submit" className="mt-4 w-full">
         create book
