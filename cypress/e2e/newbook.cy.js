@@ -21,23 +21,46 @@ describe('new book form', function () {
         },
         [],
       ).as('createBook');
-      cy.get('[data-testid="title"]').type('title');
-      cy.get('[data-testid="author"]').type('author');
-      cy.get('[data-testid="published"]').type('1234');
-      cy.get('[data-testid="genre"]').type('genre');
-      cy.get('[data-testid="add-genre-button"]').click();
-      cy.get('[data-testid="genres"]').contains('genre');
+
+      const newBook = {
+        title: 'title',
+        author: 'author',
+        published: 1234,
+        genre: 'punk',
+      };
+
+      cy.createBook(newBook);
       cy.get('[data-testid="create-book-submit"]').click();
       cy.wait('@createBook').then((interception) => {
-        expect(interception.request.body.variables.author).to.equal('author');
-        expect(interception.request.body.variables.title).to.equal('title');
-        expect(interception.request.body.variables.published).to.equal(1234);
-        expect(interception.request.body.variables.genres).to.have.all.members(['genre']);
+        expect(interception.request.body.variables.author).to.equal(newBook.author);
+        expect(interception.request.body.variables.title).to.equal(newBook.title);
+        expect(interception.request.body.variables.published).to.equal(newBook.published);
+        expect(interception.request.body.variables.genres).to.have.all.members([newBook.genre]);
       });
     });
   });
   describe('check cache after book creation', function () {
-    it('all books should be up to date', function () {});
-    it('all authors should be up to date', function () {});
+    it('all authors should be up to date', function () {
+      const newBook = {
+        title: 'pero je gazda',
+        author: 'pero deformero',
+        published: '1954',
+        genre: 'drama',
+      };
+      cy.createBook(newBook);
+      cy.get('[data-testid=authors-menu-item]').click();
+      cy.contains(newBook.author);
+    });
+    it('all books should be up to date', function () {
+      const newBook = {
+        title: 'pero je gazda',
+        author: 'pero deformero',
+        published: '1954',
+        genre: 'drama',
+      };
+      cy.createBook(newBook);
+      cy.get('[data-testid=books-menu-item]').click();
+      cy.contains(newBook.title);
+    });
   });
 });

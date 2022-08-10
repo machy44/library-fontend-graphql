@@ -35,3 +35,12 @@
 //     }
 //   }
 // }
+
+Cypress.Commands.add('createBook', ({ title, author, published, genre }) => {
+  cy.get('[data-testid="title"]').type(title);
+  cy.get('[data-testid="author"]').type(author);
+  cy.get('[data-testid="published"]').type(published);
+  cy.get('[data-testid="genre"]').type(genre);
+  cy.get('[data-testid="add-genre-button"]').click();
+  cy.get('[data-testid="genres"]').contains(genre);
+});

@@ -8,9 +8,9 @@ import { Link } from './ui/Link';
 
 const AppMenu = () => (
   <div className="flex items-center space-x-8 justify-center py-4 bg-blue-200 shadow-md">
-    <Link to="/" text="authors" />
-    <Link to="/books" text="books" />
-    <Link to="/add" text="add book" />
+    <Link to="/" text="authors" data-testid="authors-menu-item" />
+    <Link to="/books" text="books" data-testid="books-menu-item" />
+    <Link to="/add" text="add book" data-testid="add-book-menu-item" />
   </div>
 );
 
