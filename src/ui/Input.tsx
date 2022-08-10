@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import { ClassNameProps } from '../types';
+import { AdditionalProps } from '../types';
 
-export interface InputProps extends Partial<ClassNameProps> {
+export interface InputProps extends Partial<AdditionalProps> {
   id?: string;
   placeholder: string;
   type?: string;

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { IBook, UnArray } from '../types';
 import { Button } from '../ui/Button';
@@ -47,7 +46,6 @@ const NewBook: React.FC = (props) => {
   });
 
   const submit = (data: MyInputTypes) => {
-    console.log({ data });
     const { title, published, author, genres } = data;
     addBook({
       variables: { title, published, author, genres },
@@ -70,6 +68,7 @@ const NewBook: React.FC = (props) => {
       </Label>
 
       <Form.Input
+        data-testid="title"
         {...register('title')}
         placeholder="Title"
         error={get(errors, 'title.message') || null}
@@ -78,6 +77,7 @@ const NewBook: React.FC = (props) => {
         Author
       </Label>
       <Form.Input
+        data-testid="author"
         placeholder="Author"
         {...register('author')}
         error={get(errors, 'author.message') || null}
@@ -86,6 +86,7 @@ const NewBook: React.FC = (props) => {
         Published
       </Label>
       <Form.Input
+        data-testid="published"
         placeholder="Published"
         {...register('published')}
         type="number"
@@ -96,23 +97,24 @@ const NewBook: React.FC = (props) => {
       </Label>
       <div className="grid gap-x-8 grid-cols-3 box-content">
         <Form.Input
+          data-testid="genre"
           id="genre"
           placeholder="Genre"
           className="col-span-2"
           {...register('genre')}
           error={get(errors, 'genres.message') || null}
         />
-        <Button onClick={addGenre} type="button">
+        <Button onClick={addGenre} type="button" data-testid="add-genre-button">
           add genre
         </Button>
       </div>
       <div className="my-4">
-        <Text {...register('genres')}>
+        <Text {...register('genres')} data-testid="genres">
           genres:
           {getValues('genres')?.join(' ')}
         </Text>
       </div>
-      <Button type="submit" className="mt-4 w-full">
+      <Button type="submit" className="mt-4 w-full" data-testid="create-book-submit">
         create book
       </Button>
     </Form>

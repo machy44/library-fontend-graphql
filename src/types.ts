@@ -21,6 +21,14 @@ export interface ClassNameProps {
   className: string;
 }
 
+export interface DateTestIdProps {
+  'data-testid': string;
+}
+
+export type AdditionalProps = Partial<ClassNameProps & DateTestIdProps>;
+
 export type ClassNameChildrenProps = ChildrenProps & Partial<ClassNameProps>;
+
+export type AdditionAndChildrenProps = ChildrenProps & AdditionalProps;
 
 export type UnArray<T> = T extends (infer U)[] ? U : T;
