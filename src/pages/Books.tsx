@@ -27,7 +27,7 @@ const Books: React.FC = () => {
         </Thead>
         <Tbody>
           {data?.allBooks.map((a) => (
-            <Tr key={a.title}>
+            <Tr key={a.id}>
               <Td>{a.title}</Td>
               <Td>{a.author}</Td>
               <Td>{a.published}</Td>

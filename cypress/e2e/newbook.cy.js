@@ -13,7 +13,7 @@ describe('new book form', function () {
     it('published is empty ', function () {});
     it('genres is empty', function () {});
   });
-  describe.only('should submit ', function () {
+  describe('should submit ', function () {
     it('when all required fields have values', function () {
       cy.intercept(
         {
@@ -35,5 +35,9 @@ describe('new book form', function () {
         expect(interception.request.body.variables.genres).to.have.all.members(['genre']);
       });
     });
+  });
+  describe('check cache after book creation', function () {
+    it('all books should be up to date', function () {});
+    it('all authors should be up to date', function () {});
   });
 });

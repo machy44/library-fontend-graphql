@@ -9,6 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@apollo/client';
 import { Form } from '../ui/Form';
 import { ADD_BOOK } from '../mutations';
+import { ALL_AUTHORS, ALL_BOOKS } from '../queries';
 
 const schemaValidation = yup.object().shape({
   title: yup.string().required('Title is required'),
@@ -27,7 +28,9 @@ type MyInputTypes = Omit<IBook, 'id'> & {
 };
 
 const NewBook: React.FC = (props) => {
-  const [addBook] = useMutation<MyInputTypes>(ADD_BOOK);
+  const [addBook] = useMutation<MyInputTypes>(ADD_BOOK, {
+    refetchQueries: [{ query: ALL_AUTHORS }, { query: ALL_BOOKS }],
+  });
 
   const {
     register,
