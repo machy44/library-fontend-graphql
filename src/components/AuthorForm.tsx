@@ -20,10 +20,10 @@ const schemaValidation = yup.object().shape({
     .integer(),
 });
 
-type AuthorUpdate = Pick<IAuthor, 'name' | 'born'>;
+type EditAuthorData = Pick<IAuthor, 'name' | 'born'>;
 
 export const AuthorForm: React.FC = () => {
-  const [editAuthor] = useMutation<AuthorUpdate>(EDIT_AUTHOR, {
+  const [editAuthor] = useMutation<EditAuthorData>(EDIT_AUTHOR, {
     refetchQueries: [{ query: ALL_AUTHORS }],
   });
 
@@ -32,11 +32,11 @@ export const AuthorForm: React.FC = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<AuthorUpdate>({
+  } = useForm<EditAuthorData>({
     resolver: yupResolver(schemaValidation),
   });
 
-  const submit = (data: AuthorUpdate) => {
+  const submit = (data: EditAuthorData) => {
     const { name, born } = data;
     editAuthor({
       variables: { name, setBornTo: born },

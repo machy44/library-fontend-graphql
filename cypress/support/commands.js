@@ -44,3 +44,9 @@ Cypress.Commands.add('createBook', ({ title, author, published, genre }) => {
   cy.get('[data-testid="add-genre-button"]').click();
   cy.get('[data-testid="genres"]').contains(genre);
 });
+
+Cypress.Commands.add('editAuthor', function ({ name, born }) {
+  cy.get('[data-testid="name"]').type(name);
+  cy.get('[data-testid="born"]').type(born);
+  cy.get('[data-testid="update-author-submit"]').click();
+});
