@@ -27,7 +27,7 @@ type MyInputTypes = Omit<IBook, 'id'> & {
   genre: UnArray<IBook['genres']>;
 };
 
-const NewBook: React.FC = (props) => {
+const NewBook: React.FC = () => {
   const [addBook] = useMutation<MyInputTypes>(ADD_BOOK, {
     refetchQueries: [{ query: ALL_AUTHORS }, { query: ALL_BOOKS }],
   });
