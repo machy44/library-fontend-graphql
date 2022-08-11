@@ -20,7 +20,7 @@ const Authors: React.FC = () => {
   if (data?.allAuthors === undefined) return null;
 
   return (
-    <>
+    <Card className="flex flex-col ring-0 gap-10">
       <Card className="grid gap-y-8">
         <Title className="text-center">authors</Title>
         <Table>
@@ -43,7 +43,7 @@ const Authors: React.FC = () => {
         </Table>
       </Card>
       <AuthorForm />
-    </>
+    </Card>
   );
 };
 
