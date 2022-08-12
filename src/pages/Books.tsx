@@ -1,6 +1,4 @@
-import { useQuery } from '@apollo/client';
-import { ALL_BOOKS } from '../queries';
-import { IBook } from '../types';
+import { useGetAllBooks } from '../service/api';
 import { Card } from '../ui/Card';
 import { Table } from '../ui/Table';
 import { Title } from '../ui/Text';
@@ -8,7 +6,7 @@ import { Title } from '../ui/Text';
 const { Thead, Tr, Th, Tbody, Td } = Table;
 
 const Books: React.FC = () => {
-  const { data, error } = useQuery<{ allBooks: IBook[] }>(ALL_BOOKS);
+  const { data, error } = useGetAllBooks();
 
   if (error) {
     throw new Error(error.message);

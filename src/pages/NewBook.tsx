@@ -1,15 +1,12 @@
 import { useForm } from 'react-hook-form';
-import { IBook, UnArray } from '../types';
 import { Button } from '../ui/Button';
 import { Label } from '../ui/Label';
 import { Text } from '../ui/Text';
 import * as yup from 'yup';
 import get from 'lodash.get';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useMutation } from '@apollo/client';
 import { Form } from '../ui/Form';
-import { ADD_BOOK } from '../mutations';
-import { ALL_AUTHORS, ALL_BOOKS } from '../queries';
+import { AddNewBookType, useAddNewBook } from '../service/api';
 
 const schemaValidation = yup.object().shape({
   title: yup.string().required('Title is required'),
@@ -27,14 +24,8 @@ const schemaValidation = yup.object().shape({
   genres: yup.array().min(1).of(yup.string()),
 });
 
-type MyInputTypes = Omit<IBook, 'id'> & {
-  genre: UnArray<IBook['genres']>;
-};
-
 const NewBook: React.FC = () => {
-  const [addBook] = useMutation<MyInputTypes>(ADD_BOOK, {
-    refetchQueries: [{ query: ALL_AUTHORS }, { query: ALL_BOOKS }],
-  });
+  const { addBook } = useAddNewBook();
 
   const {
     register,
@@ -44,7 +35,7 @@ const NewBook: React.FC = () => {
     setValue,
     watch,
     formState: { errors },
-  } = useForm<MyInputTypes>({
+  } = useForm<AddNewBookType>({
     resolver: yupResolver(schemaValidation),
     defaultValues: {
       genre: '',
@@ -52,7 +43,7 @@ const NewBook: React.FC = () => {
     },
   });
 
-  const submit = (data: MyInputTypes) => {
+  const submit = (data: AddNewBookType) => {
     const { title, published, author, genres } = data;
     addBook({
       variables: { title, published, author, genres },

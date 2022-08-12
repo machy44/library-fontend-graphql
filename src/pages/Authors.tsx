@@ -1,16 +1,14 @@
-import { IAuthor } from '../types';
-import { ALL_AUTHORS } from '../queries';
-import { useQuery } from '@apollo/client';
 import { Spinner } from '../ui/Spinner';
 import { Title } from '../ui/Text';
 import { Card } from '../ui/Card';
 import { Table } from '../ui/Table';
 import { AuthorForm } from '../components/AuthorForm';
+import { useGetAllAuthors } from '../service/api';
 
 const { Thead, Tr, Th, Tbody, Td } = Table;
 
 const Authors: React.FC = () => {
-  const { data, loading, error } = useQuery<{ allAuthors: IAuthor[] }>(ALL_AUTHORS);
+  const { loading, error, data } = useGetAllAuthors();
 
   if (loading) return <Spinner />;
   if (error) {

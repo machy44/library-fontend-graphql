@@ -1,14 +1,11 @@
 import { useForm } from 'react-hook-form';
-import { IAuthor } from '../types';
-import { ALL_AUTHORS } from '../queries';
-import { EDIT_AUTHOR } from '../mutations';
-import { useMutation } from '@apollo/client';
 import { get } from 'react-hook-form';
 import { Button } from '../ui/Button';
 import { Form } from '../ui/Form';
 import { Label } from '../ui/Label';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { EditAuthorData, useEditAuthor, useGetAllAuthors } from '../service/api';
 
 const schemaValidation = yup.object().shape({
   name: yup.string().required('Name is required'),
@@ -24,13 +21,9 @@ const schemaValidation = yup.object().shape({
     .integer(),
 });
 
-type EditAuthorData = Pick<IAuthor, 'name' | 'born'>;
-
 export const AuthorForm: React.FC = () => {
-  const [editAuthor] = useMutation<EditAuthorData>(EDIT_AUTHOR, {
-    refetchQueries: [{ query: ALL_AUTHORS }],
-  });
-
+  const { editAuthor } = useEditAuthor();
+  const { data } = useGetAllAuthors();
   const {
     register,
     handleSubmit,
@@ -53,12 +46,7 @@ export const AuthorForm: React.FC = () => {
       <Label htmlFor="name" className="mt-2">
         Name
       </Label>
-      <Form.Input
-        data-testid="name"
-        {...register('name')}
-        placeholder="Name"
-        error={get(errors, 'name.message') || null}
-      />
+      {/* <ReactSelect options={} /> */}
       <Label htmlFor="born" className="mt-2">
         Born
       </Label>
