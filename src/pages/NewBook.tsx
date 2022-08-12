@@ -16,9 +16,13 @@ const schemaValidation = yup.object().shape({
   author: yup.string().min(3, 'Minimum length should be 3').required('Author is required'),
   published: yup
     .number()
+    .test(
+      'Is positive?',
+      'The number must be greater than 0',
+      (value) => value !== undefined && value > 0,
+    )
     .min(4, 'Must be 4 characters long')
     .required('Published is required')
-    .positive()
     .integer(),
   genres: yup.array().min(1).of(yup.string()),
 });

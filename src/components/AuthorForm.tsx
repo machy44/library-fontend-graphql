@@ -14,9 +14,13 @@ const schemaValidation = yup.object().shape({
   name: yup.string().required('Name is required'),
   born: yup
     .number()
+    .test(
+      'Is positive?',
+      'The number must be greater than 0',
+      (value) => value !== undefined && value > 0,
+    )
     .min(4, 'Must be 4 characters long')
     .required('born is required')
-    .positive()
     .integer(),
 });
 
@@ -60,7 +64,7 @@ export const AuthorForm: React.FC = () => {
       </Label>
       <Form.Input
         data-testid="born"
-        placeholder="born"
+        placeholder="Born"
         {...register('born')}
         type="number"
         error={get(errors, 'born.message') || null}
