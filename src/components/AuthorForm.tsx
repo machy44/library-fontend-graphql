@@ -70,6 +70,7 @@ export const AuthorForm: React.FC<{ data: IAuthor[] }> = ({ data }) => {
                 label: value,
                 value: value,
               }}
+              placeholder={'select author'}
             />
           );
         }}

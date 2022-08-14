@@ -1,6 +1,6 @@
 import { Spinner } from '../ui/Spinner';
 import { Title } from '../ui/Text';
-import { Card } from '../ui/Card';
+import { Card, CardWithBorder } from '../ui/Card';
 import { Table } from '../ui/Table';
 import { AuthorForm } from '../components/AuthorForm';
 import { useGetAllAuthors } from '../service/api';
@@ -18,8 +18,8 @@ const Authors: React.FC = () => {
   if (data?.allAuthors === undefined) return null;
 
   return (
-    <Card className="flex flex-col ring-0 gap-10">
-      <Card className="grid gap-y-8">
+    <Card className="flex flex-col gap-10">
+      <CardWithBorder className="grid gap-y-8">
         <Title className="text-center">authors</Title>
         <Table>
           <Thead>
@@ -39,7 +39,7 @@ const Authors: React.FC = () => {
             ))}
           </Tbody>
         </Table>
-      </Card>
+      </CardWithBorder>
       <AuthorForm data={data?.allAuthors} />
     </Card>
   );

@@ -1,5 +1,5 @@
 import { useGetAllBooks } from '../service/api';
-import { Card } from '../ui/Card';
+import { CardWithBorder } from '../ui/Card';
 import { Table } from '../ui/Table';
 import { Title } from '../ui/Text';
 
@@ -13,7 +13,7 @@ const Books: React.FC = () => {
   }
 
   return (
-    <Card>
+    <CardWithBorder>
       <Title className="text-center">books</Title>
       <Table>
         <Thead>
@@ -33,7 +33,7 @@ const Books: React.FC = () => {
           ))}
         </Tbody>
       </Table>
-    </Card>
+    </CardWithBorder>
   );
 };
 
