@@ -1,16 +1,16 @@
 import React, { forwardRef } from 'react';
 import { InputProps, Input } from './Input';
 import { ChildrenProps } from '../types';
+import { Error } from './Error';
+import type { ErrorProps } from './Error';
 
-interface FormInputProps extends InputProps {
-  error: string | null;
-}
+type FormInputProps = InputProps & ErrorProps;
 
 const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({ error, ...props }, ref) => {
   return (
     <>
       <Input {...props} ref={ref} />
-      {error && <p className="peer-invalid:visible text-red-700 font-light">{error}</p>}
+      <Error error={error} />
     </>
   );
 });

@@ -40,7 +40,7 @@ const Authors: React.FC = () => {
           </Tbody>
         </Table>
       </Card>
-      <AuthorForm />
+      <AuthorForm data={data?.allAuthors} />
     </Card>
   );
 };
