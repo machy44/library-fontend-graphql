@@ -15,18 +15,20 @@ const schemaValidation = yup.object().shape({
   name: yup.string().required('Name is required'),
   born: yup
     .number()
+    .min(4, 'Must be 4 characters long')
     .test(
       'Is positive?',
       'The number must be greater than 0',
       (value) => value !== undefined && value > 0,
     )
-    .min(4, 'Must be 4 characters long')
     .required('born is required')
     .integer(),
 });
 
 export const AuthorForm: React.FC<{ data: IAuthor[] }> = ({ data }) => {
   const { editAuthor } = useEditAuthor();
+
+  const options = convertDataToOptions(data);
 
   const {
     register,
@@ -36,6 +38,9 @@ export const AuthorForm: React.FC<{ data: IAuthor[] }> = ({ data }) => {
     control,
   } = useForm<EditAuthorData>({
     resolver: yupResolver(schemaValidation),
+    defaultValues: {
+      name: options[1].value,
+    },
   });
 
   const submit = (data: EditAuthorData) => {
@@ -47,8 +52,6 @@ export const AuthorForm: React.FC<{ data: IAuthor[] }> = ({ data }) => {
     reset();
   };
 
-  const options = convertDataToOptions(data);
-
   return (
     <Form onSubmit={handleSubmit(submit)}>
       <Label htmlFor="name" className="mt-2">
@@ -58,19 +61,17 @@ export const AuthorForm: React.FC<{ data: IAuthor[] }> = ({ data }) => {
         control={control}
         name="name"
         render={({ field: { onChange, value } }) => {
+          console.log({ value });
           return (
             <Select
+              options={options}
               onChange={(e) => {
                 if (e) {
                   onChange(e.value);
                 }
               }}
-              options={options}
-              value={{
-                label: value,
-                value: value,
-              }}
-              placeholder={'select author'}
+              value={options.filter((option) => value?.includes(option.value))}
+              placeholder="Select author..."
             />
           );
         }}

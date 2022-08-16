@@ -11,6 +11,7 @@ export const convertDataToOptions = <T extends { id: string; name: string }[]>(
   });
 };
 
-export const ReactSelect = (options: Option[]) => {
-  return <Select options={options} />;
+export const ReactSelect = (props: any) => {
+  console.log({ props });
+  return <Select {...props} />;
 };
