@@ -6,7 +6,7 @@ import { Label } from '../ui/Label';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { EditAuthorData, useEditAuthor } from '../service/api';
-import { convertDataToOptions } from '../ui/select/ReactSelect';
+import { convertDataToOptions, ReactSelect } from '../ui/select/ReactSelect';
 import { IAuthor } from '../types';
 import Select from 'react-select';
 import { Error } from '../ui/Error';
@@ -57,25 +57,7 @@ export const AuthorForm: React.FC<{ data: IAuthor[] }> = ({ data }) => {
       <Label htmlFor="name" className="mt-2">
         Name
       </Label>
-      <Controller
-        control={control}
-        name="name"
-        render={({ field: { onChange, value } }) => {
-          console.log({ value });
-          return (
-            <Select
-              options={options}
-              onChange={(e) => {
-                if (e) {
-                  onChange(e.value);
-                }
-              }}
-              value={options.filter((option) => value?.includes(option.value))}
-              placeholder="Select author..."
-            />
-          );
-        }}
-      />
+      <ReactSelect control={control} name="name" placeholder="Select author..." options={options} />
       <Error error={get(errors, 'name.message') || null} />
       <Label htmlFor="born" className="mt-2">
         Born
