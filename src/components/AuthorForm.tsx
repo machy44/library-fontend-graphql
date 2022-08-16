@@ -15,12 +15,13 @@ const schemaValidation = yup.object().shape({
   name: yup.string().required('Name is required'),
   born: yup
     .number()
-    .min(4, 'Must be 4 characters long')
+    .typeError('Amount must be a number')
     .test(
       'Is positive?',
       'The number must be greater than 0',
       (value) => value !== undefined && value > 0,
     )
+    .test('Is min/max?', 'Must be 4 characters long', (value) => String(value).length === 4)
     .required('born is required')
     .integer(),
 });
