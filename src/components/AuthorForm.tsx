@@ -1,4 +1,4 @@
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { get } from 'react-hook-form';
 import { Button } from '../ui/Button';
 import { Form } from '../ui/Form';
@@ -6,10 +6,10 @@ import { Label } from '../ui/Label';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { EditAuthorData, useEditAuthor } from '../service/api';
-import { convertDataToOptions, ReactSelect } from '../ui/select/ReactSelect';
+import { ReactSelect } from '../ui/select/ReactSelect';
 import { IAuthor } from '../types';
-import Select from 'react-select';
 import { Error } from '../ui/Error';
+import { convertDataToOptions } from '../ui/select/utils';
 
 const schemaValidation = yup.object().shape({
   name: yup.string().required('Name is required'),

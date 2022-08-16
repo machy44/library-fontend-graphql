@@ -1,16 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 import { Controller } from 'react-hook-form';
-
-type Option = { value: string; label: string };
-
-export const convertDataToOptions = <T extends { id: string; name: string }[]>(
-  data: T,
-): Option[] => {
-  return data.map((element) => {
-    return { value: element.name, label: element.name };
-  });
-};
+import type { Option } from './types';
 
 type ReactSelectProps = {
   name: string;
