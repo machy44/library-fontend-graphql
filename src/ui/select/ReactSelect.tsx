@@ -1,21 +1,22 @@
 import React from 'react';
+import { Control } from 'react-hook-form';
 import Select from 'react-select';
 import { Controller } from 'react-hook-form';
 import type { Option } from './types';
 
-type ReactSelectProps = {
+type ReactSelectProps<T> = {
   name: string;
-  control: any;
+  control: Control<T>;
   placeholder: string;
   options: Option[];
 };
 
-export const ReactSelect: React.FC<ReactSelectProps> = ({
+export function ReactSelect<T extends Record<string, any>>({
   name,
   control,
   placeholder,
   options,
-}) => {
+}: ReactSelectProps<T>) {
   return (
     <Controller
       control={control}
@@ -36,4 +37,4 @@ export const ReactSelect: React.FC<ReactSelectProps> = ({
       }}
     />
   );
-};
+}

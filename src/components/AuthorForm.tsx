@@ -58,7 +58,12 @@ export const AuthorForm: React.FC<{ data: IAuthor[] }> = ({ data }) => {
       <Label htmlFor="name" className="mt-2">
         Name
       </Label>
-      <ReactSelect control={control} name="name" placeholder="Select author..." options={options} />
+      <ReactSelect<EditAuthorData>
+        control={control}
+        name="name"
+        placeholder="Select author..."
+        options={options}
+      />
       <Error error={get(errors, 'name.message') || null} />
       <Label htmlFor="born" className="mt-2">
         Born

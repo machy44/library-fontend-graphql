@@ -1,1 +1,1 @@
-export type Option = { value: string; label: string };
+export type Option = { readonly value: string; readonly label: string };
