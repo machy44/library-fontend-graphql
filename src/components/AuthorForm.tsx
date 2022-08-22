@@ -7,6 +7,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { EditAuthorData, useEditAuthor } from '../service/api';
 import { ReactSelect } from '../ui/select/ReactSelect';
+
 import { IAuthor } from '../types';
 import { Error } from '../ui/Error';
 import { convertDataToOptions } from '../ui/select/utils';

@@ -20,6 +20,7 @@ export function ReactSelect<T extends Record<string, any>>({
   return (
     <Controller
       control={control}
+      // @ts-ignore
       name={name}
       render={({ field: { onChange, value } }) => {
         return (
@@ -30,6 +31,7 @@ export function ReactSelect<T extends Record<string, any>>({
                 onChange(e.value);
               }
             }}
+            // @ts-ignore
             value={options.filter((option) => value?.includes(option.value))}
             placeholder={placeholder}
           />
