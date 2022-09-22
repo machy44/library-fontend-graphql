@@ -8,7 +8,7 @@ export interface IAuthor {
 export interface IBook {
   title: string;
   published: number;
-  author: string;
+  author: IAuthor;
   id: number;
   genres: string[];
 }
