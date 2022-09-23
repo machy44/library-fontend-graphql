@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
-import { useAuth } from './auth';
+import { LoginPage, ProtectedPage, useAuth } from './auth';
 import { LoginForm } from './components/LoginForm';
 import Authors from './pages/Authors';
 import Books from './pages/Books';
@@ -53,8 +53,24 @@ const App = () => {
                 </ErrorBoundary>
               }
             />
-            <Route path="/add" element={<NewBook />} />
-            <Route path="/login" element={<LoginForm />} />
+
+            <Route
+              path="/add"
+              element={
+                <ProtectedPage>
+                  <NewBook />
+                </ProtectedPage>
+              }
+            />
+
+            <Route
+              path="/login"
+              element={
+                <LoginPage>
+                  <LoginForm />
+                </LoginPage>
+              }
+            />
           </Route>
         </Routes>
       </BrowserRouter>
