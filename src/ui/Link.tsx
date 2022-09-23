@@ -1,9 +1,8 @@
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, LinkProps } from 'react-router-dom';
 import { Text } from './Text';
 
-interface NavLinkProps {
+interface NavLinkProps extends LinkProps {
   text: string;
-  to: string;
 }
 
 export const Link: React.FC<NavLinkProps> = ({ text, to, ...props }) => {

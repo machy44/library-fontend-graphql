@@ -13,6 +13,11 @@ export interface IBook {
   genres: string[];
 }
 
+export interface IUser {
+  username: string;
+  password: string;
+}
+
 export interface ChildrenProps {
   children: React.ReactNode;
 }

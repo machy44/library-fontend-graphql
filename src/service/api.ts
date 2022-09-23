@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@apollo/client';
-import { EDIT_AUTHOR, ADD_BOOK } from './mutations';
+import { EDIT_AUTHOR, ADD_BOOK, LOGIN } from './mutations';
 import { ALL_AUTHORS, ALL_BOOKS } from './queries';
-import { IAuthor, IBook, UnArray } from '../types';
+import { IAuthor, IBook, IUser, UnArray } from '../types';
 
 export type EditAuthorData = Pick<IAuthor, 'name' | 'born'>;
 
@@ -41,4 +41,13 @@ export const useAddNewBook = () => {
     refetchQueries: [{ query: ALL_AUTHORS }, { query: ALL_BOOKS }],
   });
   return { addBook };
+};
+
+export const useLoginUser = () => {
+  const [login, result] = useMutation<{ login: { value: string } }, IUser>(LOGIN);
+
+  return {
+    login,
+    result,
+  };
 };

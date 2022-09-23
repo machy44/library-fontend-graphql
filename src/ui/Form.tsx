@@ -21,7 +21,7 @@ type FormProps = React.FC<ChildrenProps & { onSubmit: React.FormEventHandler<HTM
 
 export const Form: FormProps = ({ children, onSubmit }) => {
   return (
-    <form className="bg-white shadow-md rounded px-8 pt-6 pb-8" onSubmit={onSubmit}>
+    <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 min-w-[50%]" onSubmit={onSubmit}>
       {children}
     </form>
   );

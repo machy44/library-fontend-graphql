@@ -4,11 +4,13 @@ import { Card, CardWithBorder } from '../ui/Card';
 import { Table } from '../ui/Table';
 import { AuthorForm } from '../components/AuthorForm';
 import { useGetAllAuthors } from '../service/api';
+import { useAuth } from '../auth';
 
 const { Thead, Tr, Th, Tbody, Td } = Table;
 
 const Authors: React.FC = () => {
   const { loading, error, data } = useGetAllAuthors();
+  const { token } = useAuth();
 
   if (loading) return <Spinner />;
   if (error) {
@@ -40,7 +42,7 @@ const Authors: React.FC = () => {
           </Tbody>
         </Table>
       </CardWithBorder>
-      <AuthorForm data={data?.allAuthors} />
+      {token && <AuthorForm data={data?.allAuthors} />}
     </Card>
   );
 };
