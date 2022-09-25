@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { EDIT_AUTHOR, ADD_BOOK, LOGIN } from './mutations';
-import { ALL_AUTHORS, ALL_BOOKS } from './queries';
+import { ALL_AUTHORS, ALL_BOOKS, BOOKS_BY_GENRE } from './queries';
 import { IAuthor, IBook, IUser, UnArray } from '../types';
 
 export type EditAuthorData = Pick<IAuthor, 'name' | 'born'>;
@@ -25,6 +25,18 @@ export const useGetAllAuthors = () => {
 
 export const useGetAllBooks = () => {
   const { data, error } = useQuery<{ allBooks: IBook[] }>(ALL_BOOKS);
+
+  return {
+    data,
+    error,
+  };
+};
+
+export const useGenreBooks = (genre: string | undefined) => {
+  const { data, error } = useQuery<{ allBooks: IBook[] }>(BOOKS_BY_GENRE, {
+    variables: { genre },
+    skip: !genre,
+  });
 
   return {
     data,

@@ -1,13 +1,28 @@
-import { useApolloClient } from '@apollo/client';
+import { useApolloClient, useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { USER_INFO } from './service/queries';
+import { IUserProfile } from './types';
 
-const AuthContext = React.createContext<any>(null);
+export interface AuthContextProps {
+  token: string | null;
+  setToken: (token: string) => void;
+  logout: () => void;
+  userProfile: IUserProfile | undefined;
+}
+
+const AuthContext = React.createContext<AuthContextProps>({} as AuthContextProps);
 
 export const localStorageAuth = 'library-user-token';
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [token, setToken] = useState<string | null>(localStorage.getItem(localStorageAuth));
+  const [token, setToken] = useState<AuthContextProps['token']>(
+    localStorage.getItem(localStorageAuth),
+  );
+  const { data } = useQuery<{ me: AuthContextProps['userProfile'] }>(USER_INFO, {
+    skip: token === null,
+  });
+
   const client = useApolloClient();
 
   useEffect(() => {
@@ -29,7 +44,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, setToken: handleToken, logout }}>
+    <AuthContext.Provider value={{ token, setToken: handleToken, logout, userProfile: data?.me }}>
       {children}
     </AuthContext.Provider>
   );
@@ -39,7 +54,6 @@ export const useAuth = () => useContext(AuthContext);
 
 export const ProtectedPage: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { token } = useAuth();
-  console.log({ token });
   if (!token) {
     return <Navigate to="/" />;
   }

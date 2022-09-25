@@ -5,19 +5,31 @@ import { LoginForm } from './components/LoginForm';
 import Authors from './pages/Authors';
 import Books from './pages/Books';
 import NewBook from './pages/NewBook';
+import { RecommendBooks } from './pages/Recommend';
 import { ErrorBoundary } from './ui/ErrorBoundary';
 
 import { Link } from './ui/Link';
+
+const ROUTES = {
+  authors: '/',
+  books: '/books',
+  add: '/add',
+  recommend: '/recommend',
+  login: '/login',
+};
 
 const AppMenu = () => {
   const { token, logout } = useAuth();
   return (
     <div className="flex items-center space-x-8 justify-center py-4 bg-blue-200 shadow-md">
-      <Link to="/" text="authors" data-testid="authors-menu-item" />
-      <Link to="/books" text="books" data-testid="books-menu-item" />
-      {token && <Link to="/add" text="add book" data-testid="add-book-menu-item" />}
-      {!token && <Link to="/login" text="login" data-testid="login-menu-item" />}
-      {token && <Link to="/" text="logout" onClick={logout} data-testid="logout-menu-item" />}
+      <Link to={ROUTES.authors} text="authors" data-testid="authors-menu-item" />
+      <Link to={ROUTES.books} text="books" data-testid="books-menu-item" />
+      {token && <Link to={ROUTES.add} text="add book" data-testid="add-book-menu-item" />}
+      {!token && <Link to={ROUTES.login} text="login" data-testid="login-menu-item" />}
+      {token && <Link to={ROUTES.recommend} text="recommend" data-testid="logout-menu-item" />}
+      {token && (
+        <Link to={ROUTES.authors} text="logout" onClick={logout} data-testid="logout-menu-item" />
+      )}
     </div>
   );
 };
@@ -38,7 +50,7 @@ const App = () => {
         <Routes>
           <Route element={<PageLayout />}>
             <Route
-              path="/"
+              path={ROUTES.authors}
               element={
                 <ErrorBoundary>
                   <Authors />
@@ -46,7 +58,7 @@ const App = () => {
               }
             />
             <Route
-              path="/books"
+              path={ROUTES.books}
               element={
                 <ErrorBoundary>
                   <Books />
@@ -55,7 +67,7 @@ const App = () => {
             />
 
             <Route
-              path="/add"
+              path={ROUTES.add}
               element={
                 <ProtectedPage>
                   <NewBook />
@@ -64,7 +76,16 @@ const App = () => {
             />
 
             <Route
-              path="/login"
+              path={ROUTES.recommend}
+              element={
+                <ProtectedPage>
+                  <RecommendBooks />
+                </ProtectedPage>
+              }
+            />
+
+            <Route
+              path={ROUTES.login}
               element={
                 <LoginPage>
                   <LoginForm />

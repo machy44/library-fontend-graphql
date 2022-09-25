@@ -18,6 +18,10 @@ export interface IUser {
   password: string;
 }
 
+export interface IUserProfile extends Pick<IUser, 'username'> {
+  favoriteGenre: string;
+}
+
 export interface ChildrenProps {
   children: React.ReactNode;
 }
