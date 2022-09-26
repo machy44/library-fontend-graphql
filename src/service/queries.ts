@@ -38,6 +38,7 @@ export const ALL_BOOKS = gql`
         born
         bookCount
       }
+      genres
       id
     }
   }
