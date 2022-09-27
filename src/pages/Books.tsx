@@ -2,7 +2,7 @@ import { useLazyQuery } from '@apollo/client';
 import { useState } from 'react';
 import { BooksTable } from '../components/BooksTable';
 import { useGetAllBooks } from '../service/api';
-import { BOOKS_BY_GENRE } from '../service/queries';
+import { ALL_BOOKS } from '../service/queries';
 import { IBook } from '../types';
 import { Button } from '../ui/Button';
 
@@ -19,11 +19,7 @@ const Books: React.FC = () => {
   const { data, error } = useGetAllBooks();
   const [genre, setGenre] = useState('');
 
-  const [loadGenre, { called, data: genreBooks }] = useLazyQuery<{ allBooks: IBook[] }>(
-    BOOKS_BY_GENRE,
-  );
-
-  console.log('🚀 ~ file: Books.tsx ~ line 23 ~ called', data);
+  const [loadGenre, { called, data: genreBooks }] = useLazyQuery<{ allBooks: IBook[] }>(ALL_BOOKS);
 
   if (error) {
     throw new Error(error.message);

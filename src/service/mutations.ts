@@ -1,14 +1,11 @@
 import { gql } from '@apollo/client';
+import { CORE_BOOK_FIELDS } from './fragments';
 
 export const ADD_BOOK = gql`
+  ${CORE_BOOK_FIELDS}
   mutation addBook($title: String!, $published: Int!, $genres: [String!]!, $author: String!) {
     addBook(title: $title, published: $published, genres: $genres, author: $author) {
-      title
-      published
-      author {
-        name
-      }
-      genres
+      ...CoreBookFields
     }
   }
 `;

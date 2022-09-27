@@ -1,4 +1,10 @@
 import { gql } from '@apollo/client';
+import { IAuthor, IBook } from '../types';
+import { CORE_BOOK_FIELDS } from './fragments';
+
+export type AuthorsQuery = {
+  allAuthors: IAuthor[];
+};
 
 export const ALL_AUTHORS = gql`
   query allAuthors {
@@ -11,34 +17,14 @@ export const ALL_AUTHORS = gql`
   }
 `;
 
-export const CORE_BOOK_FIELDS = gql`
-  fragment CoreBookFields on Book {
-    title
-    published
-    author {
-      name
-      id
-      born
-      bookCount
-    }
-    genres
-    id
-  }
-`;
-
-export const BOOKS_BY_GENRE = gql`
-  ${CORE_BOOK_FIELDS}
-  query BooksByGenre($genre: String) {
-    allBooks(genre: $genre) {
-      ...CoreBookFields
-    }
-  }
-`;
+export type BooksQuery = {
+  allBooks: IBook[];
+};
 
 export const ALL_BOOKS = gql`
   ${CORE_BOOK_FIELDS}
-  query AllBooks {
-    allBooks {
+  query AllBooks($genre: String) {
+    allBooks(genre: $genre) {
       ...CoreBookFields
     }
   }

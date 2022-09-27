@@ -45,7 +45,6 @@ const NewBook: React.FC = () => {
 
   const submit = (data: AddNewBookType) => {
     const { title, published, author, genres } = data;
-    console.log({ data });
     addBook({
       variables: { title, published, genres, author },
     });

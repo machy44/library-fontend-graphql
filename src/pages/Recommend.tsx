@@ -6,8 +6,6 @@ export const RecommendBooks: React.FC = () => {
   const { userProfile } = useAuth();
   const { data, error } = useGenreBooks(userProfile?.favoriteGenre);
 
-  console.log({ userProfile });
-
   if (error) {
     throw new Error(error.message);
   }

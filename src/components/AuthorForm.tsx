@@ -47,7 +47,6 @@ export const AuthorForm: React.FC<{ data: IAuthor[] }> = ({ data }) => {
   });
 
   const submit = (data: EditAuthorData) => {
-    console.log({ data });
     const { name, born } = data;
     editAuthor({
       variables: { name, setBornTo: born },
