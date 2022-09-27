@@ -1,4 +1,5 @@
 import { useLazyQuery } from '@apollo/client';
+import { useState } from 'react';
 import { BooksTable } from '../components/BooksTable';
 import { useGetAllBooks } from '../service/api';
 import { BOOKS_BY_GENRE } from '../service/queries';
@@ -16,10 +17,13 @@ const groupGenres = (books: IBook[]) => {
 
 const Books: React.FC = () => {
   const { data, error } = useGetAllBooks();
+  const [genre, setGenre] = useState('');
 
   const [loadGenre, { called, data: genreBooks }] = useLazyQuery<{ allBooks: IBook[] }>(
     BOOKS_BY_GENRE,
   );
+
+  console.log('🚀 ~ file: Books.tsx ~ line 23 ~ called', data);
 
   if (error) {
     throw new Error(error.message);
@@ -27,7 +31,10 @@ const Books: React.FC = () => {
 
   return (
     <Card className="space-y-4">
-      <BooksTable data={called ? genreBooks?.allBooks : data?.allBooks} />
+      <BooksTable
+        data={called ? genreBooks?.allBooks : data?.allBooks}
+        tableTitle={called ? `books in genre: ${genre}` : undefined}
+      />
 
       <Card className="space-x-4 space-y-4">
         {data?.allBooks.length
@@ -36,6 +43,7 @@ const Books: React.FC = () => {
                 <Button
                   onClick={() => {
                     loadGenre({ variables: { genre } });
+                    setGenre(genre);
                   }}>
                   {genre}
                 </Button>

@@ -11,35 +11,35 @@ export const ALL_AUTHORS = gql`
   }
 `;
 
+export const CORE_BOOK_FIELDS = gql`
+  fragment CoreBookFields on Book {
+    title
+    published
+    author {
+      name
+      id
+      born
+      bookCount
+    }
+    genres
+    id
+  }
+`;
+
 export const BOOKS_BY_GENRE = gql`
+  ${CORE_BOOK_FIELDS}
   query BooksByGenre($genre: String) {
     allBooks(genre: $genre) {
-      title
-      published
-      author {
-        name
-        id
-        born
-        bookCount
-      }
-      id
+      ...CoreBookFields
     }
   }
 `;
 
 export const ALL_BOOKS = gql`
-  query allBooks {
+  ${CORE_BOOK_FIELDS}
+  query AllBooks {
     allBooks {
-      title
-      published
-      author {
-        name
-        id
-        born
-        bookCount
-      }
-      genres
-      id
+      ...CoreBookFields
     }
   }
 `;
