@@ -7,13 +7,7 @@ import { IBook } from '../types';
 import { Button } from '../ui/Button';
 
 import { Card } from '../ui/Card';
-import { unique } from '../utils';
-
-const groupGenres = (books: IBook[]) => {
-  return books.reduce((genres: IBook['genres'], book) => {
-    return [...genres, ...book.genres];
-  }, []);
-};
+import { groupGenres, unique } from '../utils';
 
 const Books: React.FC = () => {
   const { data, error } = useGetAllBooks();

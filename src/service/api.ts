@@ -64,6 +64,15 @@ export const useAddNewBook = () => {
           return { allAuthors: [...data.allAuthors, response.data.addBook.author] };
         }
       });
+      //@ts-ignore
+      response.data.addBook.genres.forEach((genre) => {
+        cache.updateQuery({ query: ALL_BOOKS, variables: { genre } }, (data) => {
+          if (data) {
+            //@ts-ignore
+            return { allBooks: [...data.allBooks, response.data.addBook] };
+          }
+        });
+      });
     },
   });
   return { addBook };

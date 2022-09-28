@@ -9,3 +9,9 @@ export const unique = (genres: IBook['genres']) => {
   });
   return Object.keys(uniques);
 };
+
+export const groupGenres = (books: IBook[]) => {
+  return books.reduce((genres: IBook['genres'], book) => {
+    return [...genres, ...book.genres];
+  }, []);
+};
