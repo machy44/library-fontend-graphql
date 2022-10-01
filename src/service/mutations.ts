@@ -1,5 +1,10 @@
 import { gql } from '@apollo/client';
+import { IBook } from '../types';
 import { CORE_BOOK_FIELDS } from './fragments';
+
+export type AddBookMutation = {
+  addBook: IBook;
+};
 
 export const ADD_BOOK = gql`
   ${CORE_BOOK_FIELDS}

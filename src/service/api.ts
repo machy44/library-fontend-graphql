@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client';
-import { EDIT_AUTHOR, ADD_BOOK, LOGIN } from './mutations';
+import { EDIT_AUTHOR, ADD_BOOK, LOGIN, AddBookMutation } from './mutations';
 import { ALL_AUTHORS, ALL_BOOKS, BooksQuery, AuthorsQuery } from './queries';
 import { IAuthor, IBook, IUser, UnArray } from '../types';
 
@@ -49,26 +49,23 @@ export type AddNewBookType = Omit<IBook, 'id'> & {
 };
 
 export const useAddNewBook = () => {
-  const [addBook] = useMutation<IBook>(ADD_BOOK, {
+  const [addBook] = useMutation<AddBookMutation>(ADD_BOOK, {
     update: (cache, response, options) => {
-      cache.updateQuery<BooksQuery>({ query: ALL_BOOKS }, (data) => {
-        if (data) {
-          //@ts-ignore
-          return { allBooks: [...data.allBooks, response.data.addBook] };
+      cache.updateQuery<{ allBooks: (IBook | undefined)[] }>({ query: ALL_BOOKS }, (data) => {
+        if (data?.allBooks) {
+          return { allBooks: [...data.allBooks, response?.data?.addBook] };
         }
       });
       console.log({ response });
       cache.updateQuery<AuthorsQuery>({ query: ALL_AUTHORS }, (data) => {
-        if (data) {
-          //@ts-ignore
+        if (data && response.data) {
           return { allAuthors: [...data.allAuthors, response.data.addBook.author] };
         }
       });
-      //@ts-ignore
-      response.data.addBook.genres.forEach((genre) => {
+
+      response.data?.addBook.genres.forEach((genre) => {
         cache.updateQuery({ query: ALL_BOOKS, variables: { genre } }, (data) => {
-          if (data) {
-            //@ts-ignore
+          if (data && response.data) {
             return { allBooks: [...data.allBooks, response.data.addBook] };
           }
         });
