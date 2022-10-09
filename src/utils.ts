@@ -1,12 +1,6 @@
-import {
-  ApolloCache,
-  DefaultContext,
-  MutationUpdaterFunction,
-  OperationVariables,
-} from '@apollo/client';
-import { AddBookMutation } from './service/mutations';
+import { ApolloCache } from '@apollo/client';
 import { ALL_BOOKS, AuthorsQuery, ALL_AUTHORS } from './service/queries';
-import { IBook } from './types';
+import { IAuthor, IBook } from './types';
 
 export const uniqueGenres = (genres: IBook['genres']) => {
   const uniques: Record<string, string> = {};
@@ -24,21 +18,23 @@ export const groupGenres = (books: IBook[]) => {
   }, []);
 };
 
-const unique = (field: string) => (a: any) => {
-  let seen = new Set();
-  return a.filter((item: any) => {
-    let k = item[field];
-    return seen.has(k) ? false : seen.add(k);
-  });
-};
+const unique =
+  <T extends {}, K extends keyof T>(field: K) =>
+  (a: T[]) => {
+    let seen = new Set();
+    return a.filter((item: T) => {
+      let k = item[field];
+      return seen.has(k) ? false : seen.add(k);
+    });
+  };
 
-const uniqueByTitle = unique('title');
+const uniqueByTitle = unique<IBook, keyof IBook>('title');
 
-const uniqueByName = unique('name');
+const uniqueByName = unique<IAuthor, keyof IAuthor>('name');
 
 export const updateAddBookCache = (cache: ApolloCache<object>, bookData: IBook) => {
-  cache.updateQuery<{ allBooks: (IBook | undefined)[] }>({ query: ALL_BOOKS }, (data) => {
-    if (data?.allBooks) {
+  cache.updateQuery<{ allBooks: IBook[] }>({ query: ALL_BOOKS }, (data) => {
+    if (data?.allBooks && bookData) {
       return { allBooks: uniqueByTitle([...data.allBooks, bookData]) };
     }
   });
