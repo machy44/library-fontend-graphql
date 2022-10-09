@@ -1,4 +1,5 @@
-import React from 'react';
+import { useSubscription } from '@apollo/client';
+import React, { useState } from 'react';
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 import { LoginPage, ProtectedPage, useAuth } from './auth';
 import { LoginForm } from './components/LoginForm';
@@ -6,7 +7,9 @@ import Authors from './pages/Authors';
 import Books from './pages/Books';
 import NewBook from './pages/NewBook';
 import { RecommendBooks } from './pages/Recommend';
+import { BOOK_ADDED } from './service/subscriptions';
 import { ErrorBoundary } from './ui/ErrorBoundary';
+import { Info } from './ui/Info';
 
 import { Link } from './ui/Link';
 
@@ -42,11 +45,33 @@ const PageLayout: React.FC = () => {
   );
 };
 
+const useNotify = () => {
+  const [infoMessage, setInfoMessage] = useState<string | null>(null);
+  const notify = (message: string) => {
+    setInfoMessage(message);
+    setTimeout(() => {
+      setInfoMessage(null);
+    }, 10000);
+  };
+
+  return [infoMessage, notify] as const;
+};
+
 const App = () => {
+  const [infoMessage, notify] = useNotify();
+
+  useSubscription(BOOK_ADDED, {
+    onSubscriptionData: ({ subscriptionData }) => {
+      const addedBook = subscriptionData.data.bookAdded;
+      notify(`${addedBook.title} added`);
+    },
+  });
+
   return (
     <div className="container mx-auto px-4 py-4 grid h-screen grid-rows-[80px_1fr]">
       <BrowserRouter>
         <AppMenu />
+        <Info content={infoMessage} />
         <Routes>
           <Route element={<PageLayout />}>
             <Route
