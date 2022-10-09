@@ -1,8 +1,9 @@
 import { useSubscription } from '@apollo/client';
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 import { LoginPage, ProtectedPage, useAuth } from './auth';
 import { LoginForm } from './components/LoginForm';
+import { useNotify } from './hooks';
 import Authors from './pages/Authors';
 import Books from './pages/Books';
 import NewBook from './pages/NewBook';
@@ -43,18 +44,6 @@ const PageLayout: React.FC = () => {
       <Outlet />
     </div>
   );
-};
-
-const useNotify = () => {
-  const [infoMessage, setInfoMessage] = useState<string | null>(null);
-  const notify = (message: string) => {
-    setInfoMessage(message);
-    setTimeout(() => {
-      setInfoMessage(null);
-    }, 10000);
-  };
-
-  return [infoMessage, notify] as const;
 };
 
 const App = () => {
