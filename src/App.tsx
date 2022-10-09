@@ -9,10 +9,12 @@ import Books from './pages/Books';
 import NewBook from './pages/NewBook';
 import { RecommendBooks } from './pages/Recommend';
 import { BOOK_ADDED } from './service/subscriptions';
+import { IBook } from './types';
 import { ErrorBoundary } from './ui/ErrorBoundary';
 import { Info } from './ui/Info';
 
 import { Link } from './ui/Link';
+import { updateAddBookCache } from './utils';
 
 const ROUTES = {
   authors: '/',
@@ -46,13 +48,20 @@ const PageLayout: React.FC = () => {
   );
 };
 
+export type BookAddedSubscription = {
+  bookAdded: IBook;
+};
+
 const App = () => {
   const [infoMessage, notify] = useNotify();
 
-  useSubscription(BOOK_ADDED, {
-    onSubscriptionData: ({ subscriptionData }) => {
-      const addedBook = subscriptionData.data.bookAdded;
-      notify(`${addedBook.title} added`);
+  useSubscription<BookAddedSubscription>(BOOK_ADDED, {
+    onSubscriptionData: ({ subscriptionData, client }) => {
+      const addedBook = subscriptionData.data?.bookAdded;
+      if (addedBook) {
+        notify(`${addedBook.title} added`);
+        updateAddBookCache(client.cache, addedBook);
+      }
     },
   });
 

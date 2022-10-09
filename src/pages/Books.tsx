@@ -7,7 +7,7 @@ import { IBook } from '../types';
 import { Button } from '../ui/Button';
 
 import { Card } from '../ui/Card';
-import { groupGenres, unique } from '../utils';
+import { groupGenres, uniqueGenres } from '../utils';
 
 const Books: React.FC = () => {
   const { data, error } = useGetAllBooks();
@@ -28,7 +28,7 @@ const Books: React.FC = () => {
 
       <Card className="space-x-4 space-y-4">
         {data?.allBooks.length
-          ? unique(groupGenres(data.allBooks)).map((genre) => {
+          ? uniqueGenres(groupGenres(data.allBooks)).map((genre) => {
               return (
                 <Button
                   onClick={() => {
