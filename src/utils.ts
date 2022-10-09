@@ -19,7 +19,7 @@ export const groupGenres = (books: IBook[]) => {
 };
 
 const unique =
-  <T extends {}, K extends keyof T>(field: K) =>
+  <T extends {}>(field: keyof T) =>
   (a: T[]) => {
     let seen = new Set();
     return a.filter((item: T) => {
@@ -28,9 +28,9 @@ const unique =
     });
   };
 
-const uniqueByTitle = unique<IBook, keyof IBook>('title');
+const uniqueByTitle = unique<IBook>('title');
 
-const uniqueByName = unique<IAuthor, keyof IAuthor>('name');
+const uniqueByName = unique<IAuthor>('name');
 
 export const updateAddBookCache = (cache: ApolloCache<object>, bookData: IBook) => {
   cache.updateQuery<{ allBooks: IBook[] }>({ query: ALL_BOOKS }, (data) => {
