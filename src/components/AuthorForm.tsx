@@ -42,7 +42,7 @@ export const AuthorForm: React.FC<{ data: IAuthor[] }> = ({ data }) => {
   } = useForm<EditAuthorData>({
     resolver: yupResolver(schemaValidation),
     defaultValues: {
-      name: options[1].value,
+      name: options[0]?.value,
     },
   });
 
