@@ -1,6 +1,6 @@
 export const Spinner = () => {
   return (
-    <svg className="animate-spin h-10 w-10 -ml-1 mr-3" viewBox="0 0 24 24">
+    <svg data-testid="spinner" className="animate-spin h-10 w-10 -ml-1 mr-3" viewBox="0 0 24 24">
       <circle
         className="opacity-25"
         cx="12"
