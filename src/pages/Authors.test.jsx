@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import { ALL_AUTHORS } from '../service/queries';
 import Authors from './Authors';
@@ -66,6 +66,7 @@ describe('authors page', () => {
 
     expect(screen.getByTestId('spinner')).toBeTruthy();
   });
+  // should check null
   it('should return null when authors dont exist', () => {
     expect(true).toBe(true);
   });
