@@ -13,16 +13,20 @@ export const Table: TableProps = ({ children }): JSX.Element => {
   return <table className="border-collapse table-auto w-full text-sm">{children}</table>;
 };
 
-const Tbody: React.FC<ChildrenProps> = ({ children }): JSX.Element => {
-  return <tbody className="bg-white dark:bg-slate-800">{children}</tbody>;
+const Tbody: React.FC<ChildrenProps> = ({ children, ...props }): JSX.Element => {
+  return (
+    <tbody {...props} className="bg-white dark:bg-slate-800">
+      {children}
+    </tbody>
+  );
 };
 
 const Thead: React.FC<ChildrenProps> = ({ children }) => {
   return <thead>{children}</thead>;
 };
 
-const Tr: React.FC<ChildrenProps> = ({ children }) => {
-  return <tr>{children}</tr>;
+const Tr: React.FC<ChildrenProps> = ({ children, ...props }) => {
+  return <tr {...props}>{children}</tr>;
 };
 
 const Th: React.FC<Partial<ChildrenProps>> = ({ children }) => {

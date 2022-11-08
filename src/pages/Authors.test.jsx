@@ -1,5 +1,5 @@
-// import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import { ALL_AUTHORS } from '../service/queries';
 import Authors from './Authors';
@@ -35,15 +35,27 @@ const mocks = [
 ];
 
 describe('authors page', () => {
-  it('should render right number of authors', async () => {
+  it('table should be rendered when data exists', async () => {
     render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <Authors />
       </MockedProvider>,
     );
 
-    expect(screen.getByText('the lion king')).toBeInTheDocument();
-    // expect(screen.getByRole('tr')).toHaveLength(3);
+    await waitFor(() => {
+      expect(screen.getByTestId('author-table-body')).toBeInTheDocument();
+    });
+  });
+  it('should render two authors', async () => {
+    render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <Authors />
+      </MockedProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getAllByTestId(/author-row-/).length).toBe(2);
+    });
   });
   it('should render loading state', async () => {
     render(
@@ -57,6 +69,7 @@ describe('authors page', () => {
   it('should return null when authors dont exist', () => {
     expect(true).toBe(true);
   });
+  // wrap with error boundary here
   // it('should throw an error when server response is not sucessfull', () => {
   //   expect(true).toBe(true);
   // });

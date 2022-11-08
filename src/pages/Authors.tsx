@@ -31,9 +31,9 @@ const Authors: React.FC = () => {
               <Th>books</Th>
             </Tr>
           </Thead>
-          <Tbody>
-            {data.allAuthors.map((a) => (
-              <Tr key={a.id}>
+          <Tbody data-testid="author-table-body">
+            {data.allAuthors.map((a, index) => (
+              <Tr key={a.id} data-testid={`author-row-${index}`}>
                 <Td>{a.name}</Td>
                 <Td>{a.born}</Td>
                 <Td>{a.bookCount}</Td>
