@@ -66,14 +66,35 @@ describe('authors page', () => {
 
     expect(screen.getByTestId('spinner')).toBeTruthy();
   });
-  // should check null
-  it('should return null when authors dont exist', () => {
+
+  it('should return null when authors dont exist', async () => {
+    render(
+      <MockedProvider
+        mocks={[
+          {
+            request: {
+              query: ALL_AUTHORS,
+            },
+            result: {
+              data: {
+                allAuthors: undefined,
+              },
+            },
+          },
+        ]}
+        addTypename={false}>
+        <Authors />
+      </MockedProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('author-table-body')).not.toBeInTheDocument();
+    });
+  });
+
+  it('should throw an error when server response is not sucessfull', () => {
     expect(true).toBe(true);
   });
-  // wrap with error boundary here
-  // it('should throw an error when server response is not sucessfull', () => {
-  //   expect(true).toBe(true);
-  // });
 });
 
 export {};
