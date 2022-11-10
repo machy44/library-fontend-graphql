@@ -3,6 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import { ALL_AUTHORS } from '../service/queries';
 import Authors from './Authors';
+import { ErrorBoundary } from '../ui/ErrorBoundary';
 
 const mockedData = [
   {
@@ -92,8 +93,27 @@ describe('authors page', () => {
     });
   });
 
-  it('should throw an error when server response is not sucessfull', () => {
-    expect(true).toBe(true);
+  it('should display error response message when there is an error', async () => {
+    render(
+      <MockedProvider
+        mocks={[
+          {
+            request: {
+              query: ALL_AUTHORS,
+            },
+
+            error: new Error('test error'),
+          },
+        ]}
+        addTypename={false}>
+        <ErrorBoundary>
+          <Authors />
+        </ErrorBoundary>
+      </MockedProvider>,
+    );
+    await waitFor(() => {
+      expect(screen.getByText('test error')).toBeInTheDocument();
+    });
   });
 });
 
