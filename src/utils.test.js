@@ -1,4 +1,4 @@
-import { unique } from './utils';
+import { unique, mockedBooksData, groupGenres } from './utils';
 
 const genres = ['refactoring', 'agile', 'patterns', 'design', 'refactoring', 'classic', 'crime'];
 const genres2 = [
@@ -25,6 +25,11 @@ describe('utils', () => {
     });
     it('should return unique values 2', () => {
       expect(unique(genres2)).toEqual(['refactoring', 'crime']);
+    });
+  });
+  describe('group genre', () => {
+    it('should add all genres in array', () => {
+      expect(groupGenres(mockedBooksData).length).toBe(13);
     });
   });
 });
