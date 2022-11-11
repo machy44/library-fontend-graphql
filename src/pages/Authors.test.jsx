@@ -22,7 +22,7 @@ const mockedData = [
   },
 ];
 
-const mocks = [
+const defaultMocks = [
   {
     request: {
       query: ALL_AUTHORS,
@@ -35,58 +35,49 @@ const mocks = [
   },
 ];
 
+const renderWithApollo = (children, mocks = defaultMocks) => {
+  return render(
+    <MockedProvider mocks={mocks} addTypename={false}>
+      {children}
+    </MockedProvider>,
+  );
+};
+
 describe('authors page', () => {
   it('table should be rendered when data exists', async () => {
-    render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <Authors />
-      </MockedProvider>,
-    );
+    renderWithApollo(<Authors />);
 
     await waitFor(() => {
       expect(screen.getByTestId('author-table-body')).toBeInTheDocument();
     });
   });
   it('should render two authors', async () => {
-    render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <Authors />
-      </MockedProvider>,
-    );
+    renderWithApollo(<Authors />);
 
     await waitFor(() => {
       expect(screen.getAllByTestId(/author-row-/).length).toBe(2);
     });
   });
   it('should render loading state', async () => {
-    render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <Authors />
-      </MockedProvider>,
-    );
+    renderWithApollo(<Authors />);
 
     expect(screen.getByTestId('spinner')).toBeTruthy();
   });
 
   it('should return null when authors dont exist', async () => {
-    render(
-      <MockedProvider
-        mocks={[
-          {
-            request: {
-              query: ALL_AUTHORS,
-            },
-            result: {
-              data: {
-                allAuthors: undefined,
-              },
-            },
+    const mocks = [
+      {
+        request: {
+          query: ALL_AUTHORS,
+        },
+        result: {
+          data: {
+            allAuthors: undefined,
           },
-        ]}
-        addTypename={false}>
-        <Authors />
-      </MockedProvider>,
-    );
+        },
+      },
+    ];
+    renderWithApollo(<Authors />, mocks);
 
     await waitFor(() => {
       expect(screen.queryByTestId('author-table-body')).not.toBeInTheDocument();
@@ -94,23 +85,23 @@ describe('authors page', () => {
   });
 
   it('should display error response message when there is an error', async () => {
-    render(
-      <MockedProvider
-        mocks={[
-          {
-            request: {
-              query: ALL_AUTHORS,
-            },
+    const mocks = [
+      {
+        request: {
+          query: ALL_AUTHORS,
+        },
 
-            error: new Error('test error'),
-          },
-        ]}
-        addTypename={false}>
-        <ErrorBoundary>
-          <Authors />
-        </ErrorBoundary>
-      </MockedProvider>,
+        error: new Error('test error'),
+      },
+    ];
+
+    renderWithApollo(
+      <ErrorBoundary>
+        <Authors />
+      </ErrorBoundary>,
+      mocks,
     );
+
     await waitFor(() => {
       expect(screen.getByText('test error')).toBeInTheDocument();
     });
