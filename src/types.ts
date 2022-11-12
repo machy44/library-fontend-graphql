@@ -1,15 +1,15 @@
 export interface IAuthor {
   name: string;
   id: string;
-  born: number;
-  bookCount: string;
+  born: number | null;
+  bookCount: number;
 }
 
 export interface IBook {
   title: string;
   published: number;
   author: IAuthor;
-  id: number;
+  id: string;
   genres: string[];
 }
 
