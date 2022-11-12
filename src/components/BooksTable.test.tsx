@@ -6,6 +6,7 @@ describe('BooksTable', () => {
   it('should render right number of books', () => {
     render(<BooksTable data={mockedBooksData} />);
     expect(screen.getByTestId('books-table-body')).toBeInTheDocument();
+    expect(screen.getAllByTestId(/book-row-/).length).toBe(7);
   });
 
   it('should not render table when there is no data', () => {
