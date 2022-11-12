@@ -6,8 +6,8 @@ const testMockedData = [...mockedBooksData, ...mockedBooksData, ...mockedBooksDa
 describe('utils', () => {
   describe('unique', () => {
     it('should return unique values', () => {
-      const genreUnique = unique('title');
-      expect(genreUnique(testMockedData)).toEqual(mockedBooksData);
+      const titleUnique = unique('title');
+      expect(titleUnique(testMockedData)).toEqual(mockedBooksData);
     });
   });
   describe('group genre', () => {
