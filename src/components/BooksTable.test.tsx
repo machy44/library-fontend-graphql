@@ -1,4 +1,4 @@
-import { mockedBooksData } from '../utils';
+import { mockedBooksData } from '../testUtils';
 import { BooksTable } from './BooksTable';
 import { render, screen } from '@testing-library/react';
 

@@ -1,25 +1,8 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import { MockedProvider } from '@apollo/client/testing';
+import { screen, waitFor } from '@testing-library/react';
 import { ALL_AUTHORS } from '../service/queries';
 import Authors from './Authors';
 import { ErrorBoundary } from '../ui/ErrorBoundary';
-
-const mockedData = [
-  {
-    name: 'Robert Martin',
-    id: '6368c4e6f1f34b35a9516a79',
-    born: 1952,
-    bookCount: 2,
-    __typename: 'Author',
-  },
-  {
-    name: 'Martin Fowler',
-    id: '6368c4e6f1f34b35a9516a83',
-    born: 1963,
-    bookCount: 1,
-    __typename: 'Author',
-  },
-];
+import { renderWithApollo, mockedAuthorsData } from '../testUtils';
 
 const defaultMocks = [
   {
@@ -28,37 +11,29 @@ const defaultMocks = [
     },
     result: {
       data: {
-        allAuthors: mockedData,
+        allAuthors: mockedAuthorsData,
       },
     },
   },
 ];
 
-const renderWithApollo = (children, mocks = defaultMocks) => {
-  return render(
-    <MockedProvider mocks={mocks} addTypename={false}>
-      {children}
-    </MockedProvider>,
-  );
-};
-
 describe('authors page', () => {
   it('table should be rendered when data exists', async () => {
-    renderWithApollo(<Authors />);
+    renderWithApollo(<Authors />, defaultMocks);
 
     await waitFor(() => {
       expect(screen.getByTestId('author-table-body')).toBeInTheDocument();
     });
   });
   it('should render two authors', async () => {
-    renderWithApollo(<Authors />);
+    renderWithApollo(<Authors />, defaultMocks);
 
     await waitFor(() => {
       expect(screen.getAllByTestId(/author-row-/).length).toBe(2);
     });
   });
   it('should render loading state', async () => {
-    renderWithApollo(<Authors />);
+    renderWithApollo(<Authors />, defaultMocks);
 
     expect(screen.getByTestId('spinner')).toBeTruthy();
   });

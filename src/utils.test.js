@@ -1,30 +1,13 @@
-import { unique, mockedBooksData, groupGenres } from './utils';
+import { unique, groupGenres } from './utils';
+import { mockedBooksData } from './testUtils';
 
-const genres = ['refactoring', 'agile', 'patterns', 'design', 'refactoring', 'classic', 'crime'];
-const genres2 = [
-  'refactoring',
-  'refactoring',
-  'refactoring',
-  'refactoring',
-  'refactoring',
-  'refactoring',
-  'crime',
-];
+const testMockedData = [...mockedBooksData, ...mockedBooksData, ...mockedBooksData];
 
 describe('utils', () => {
   describe('unique', () => {
     it('should return unique values', () => {
-      expect(unique(genres)).toEqual([
-        'refactoring',
-        'agile',
-        'patterns',
-        'design',
-        'classic',
-        'crime',
-      ]);
-    });
-    it('should return unique values 2', () => {
-      expect(unique(genres2)).toEqual(['refactoring', 'crime']);
+      const genreUnique = unique('title');
+      expect(genreUnique(testMockedData)).toEqual(mockedBooksData);
     });
   });
   describe('group genre', () => {
