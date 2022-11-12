@@ -1,6 +1,26 @@
-describe('books page', () => {
+import { mockedBooksData } from '../utils';
+import { BooksTable } from './BooksTable';
+import { render, screen } from '@testing-library/react';
+
+describe('BooksTable', () => {
   it('should render right number of books', () => {
-    expect(true).toBe(true);
+    render(<BooksTable data={mockedBooksData} />);
+    expect(screen.getByTestId('books-table-body')).toBeInTheDocument();
+  });
+
+  it('should not render table when there is no data', () => {
+    render(<BooksTable data={undefined} />);
+    expect(screen.queryByText('books')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('books-table-body')).not.toBeInTheDocument();
+  });
+  it('tableTitle should be set on default if it is undefined', () => {
+    render(<BooksTable data={mockedBooksData} />);
+    expect(screen.getByText('books')).toBeInTheDocument();
+  });
+  it('should render right table title', () => {
+    render(<BooksTable data={mockedBooksData} tableTitle="refactoring" />);
+    expect(screen.getByText('refactoring')).toBeInTheDocument();
+    expect(screen.queryByText('books')).not.toBeInTheDocument();
   });
 });
 

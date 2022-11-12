@@ -24,9 +24,9 @@ export function BooksTable({ data, tableTitle = 'books' }: IBooksTable) {
             <Th>published</Th>
           </Tr>
         </Thead>
-        <Tbody>
-          {data.map((a) => (
-            <Tr key={a.id}>
+        <Tbody data-testid="books-table-body">
+          {data.map((a, index) => (
+            <Tr key={a.id} data-testid={`book-row-${index}`}>
               <Td>{a.title}</Td>
               <Td>{a.author.name}</Td>
               <Td>{a.published}</Td>
