@@ -26,11 +26,12 @@ const Books: React.FC = () => {
         tableTitle={called ? `books in genre: ${genre}` : undefined}
       />
 
-      <Card className="space-x-4 space-y-4">
+      <Card className="space-x-4 space-y-4" data-testid="genre-buttons">
         {data?.allBooks.length
-          ? uniqueGenres(groupGenres(data.allBooks)).map((genre) => {
+          ? uniqueGenres(groupGenres(data.allBooks)).map((genre, index) => {
               return (
                 <Button
+                  data-testid={`genre-button-${index}`}
                   onClick={() => {
                     loadGenre({ variables: { genre } });
                     setGenre(genre);

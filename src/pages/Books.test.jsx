@@ -4,9 +4,34 @@ import { mockedBooksData, renderWithApollo } from '../testUtils';
 import { ErrorBoundary } from '../ui/ErrorBoundary';
 import { ALL_BOOKS } from '../service/queries';
 
+const defaultMocks = [
+  {
+    request: {
+      query: ALL_BOOKS,
+    },
+    result: {
+      data: {
+        allBooks: mockedBooksData,
+      },
+    },
+  },
+];
+
 describe('books page', () => {
-  it('should render right number of genres', () => {
-    expect(true).toBe(true);
+  it('should render books table and genre buttons', async () => {
+    renderWithApollo(<Books />, defaultMocks);
+    expect(await screen.findByTestId('books-table-body')).toBeInTheDocument();
+    expect(await screen.findByTestId('genre-buttons')).toBeInTheDocument();
+  });
+  it('should render right number of genre buttons and table rows', async () => {
+    renderWithApollo(<Books />, defaultMocks);
+
+    await waitFor(() => {
+      expect(screen.getAllByTestId(/genre-button-/).length).toBe(7);
+    });
+    await waitFor(() => {
+      expect(screen.getAllByTestId(/book-row-/).length).toBe(7);
+    });
   });
   it('BooksPage should display error response message when there is an error', async () => {
     const mocks = [
