@@ -8,3 +8,5 @@ for client testing:
 3. E2E (cypress)
 
 Take a look how to test subscriptions?
+
+https://kentcdodds.com/blog/common-mistakes-with-react-testing-library
