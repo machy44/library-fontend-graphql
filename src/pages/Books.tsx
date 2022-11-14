@@ -13,7 +13,9 @@ const Books: React.FC = () => {
   const { data, error } = useGetAllBooks();
   const [genre, setGenre] = useState('');
 
-  const [loadGenre, { called, data: genreBooks }] = useLazyQuery<{ allBooks: IBook[] }>(ALL_BOOKS);
+  const [loadGenre, { called, data: genreBooks }] = useLazyQuery<{
+    allBooks: IBook[];
+  }>(ALL_BOOKS);
 
   if (error) {
     throw new Error(error.message);
@@ -31,6 +33,7 @@ const Books: React.FC = () => {
           ? uniqueGenres(groupGenres(data.allBooks)).map((genre, index) => {
               return (
                 <Button
+                  key={`genre-${index}`}
                   data-testid={`genre-button-${index}`}
                   onClick={() => {
                     loadGenre({ variables: { genre } });
