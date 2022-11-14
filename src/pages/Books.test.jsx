@@ -20,6 +20,7 @@ const defaultMocks = [
     },
   },
   {
+    // query which will be executed by useLazyQuery
     request: {
       query: ALL_BOOKS,
       variables: { genre: 'refactoring' },
@@ -58,8 +59,8 @@ describe('BooksPage', () => {
       expect(screen.getAllByTestId(/genre-button-/).length).toBe(7);
     });
 
-    const refactoringButton = screen.getByTestId('genre-button-0');
-    fireEvent.click(refactoringButton);
+    const refactoringGenreButton = screen.getByTestId('genre-button-0');
+    fireEvent.click(refactoringGenreButton);
 
     expect(await screen.findByTestId('books-table-body')).toBeInTheDocument();
 
