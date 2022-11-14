@@ -49,7 +49,7 @@ export const LoginForm = () => {
         username
       </Label>
       <Form.Input
-        data-testid="username"
+        data-testid="username-input"
         placeholder="Username"
         {...register('username')}
         error={get(errors, 'username.message') || null}
@@ -58,12 +58,13 @@ export const LoginForm = () => {
         password
       </Label>
       <Form.Input
+        data-testid="password-input"
         type="password"
         placeholder="Password"
         {...register('password')}
         error={get(errors, 'password.message') || null}
       />
-      <Button type="submit" className="mt-4 w-full" data-testid="update-author-submit">
+      <Button type="submit" className="mt-4 w-full" data-testid="login-submit">
         login
       </Button>
     </Form>
