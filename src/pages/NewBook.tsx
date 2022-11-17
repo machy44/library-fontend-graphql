@@ -60,7 +60,7 @@ const NewBook: React.FC = () => {
   watch('genres');
 
   return (
-    <Form onSubmit={handleSubmit(submit)}>
+    <Form onSubmit={handleSubmit(submit)} data-testid="new-book-form">
       <Label htmlFor="title" className="mt-2">
         Title
       </Label>

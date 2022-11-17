@@ -55,7 +55,7 @@ export const AuthorForm: React.FC<{ data: IAuthor[] }> = ({ data }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit(submit)}>
+    <Form onSubmit={handleSubmit(submit)} data-testid="author-edit-form">
       <Label htmlFor="name" className="mt-2">
         Name
       </Label>
