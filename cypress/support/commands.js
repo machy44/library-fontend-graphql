@@ -51,4 +51,6 @@ Cypress.Commands.add('editAuthor', function ({ name, born }) {
   cy.get('[data-testid="update-author-submit"]').click();
 });
 
-
+Cypress.Commands.add('getByTestId', function (selector, ...args) {
+  return cy.get(`[data-testid=${selector}]`, ...args);
+});
