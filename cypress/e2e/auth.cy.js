@@ -1,4 +1,3 @@
-import { wait } from '@testing-library/user-event/dist/utils';
 import { LoginForm, Navigation, AuthorsPage } from '../components';
 
 describe('Auth', function () {

@@ -1,18 +1,19 @@
 describe('new book form', function () {
   beforeEach(function () {
+    cy.login({ username: 'test', password: 'test' });
     cy.visit('http://localhost:3000/add');
   });
-  it('should open new book form ', function () {
-    cy.contains('create book');
-  });
-  describe('should not submit ', function () {
-    it('title is empty', function () {
-      cy.get('input:first').type('mluukkai');
-    });
-    it('author is empty', function () {});
-    it('published is empty ', function () {});
-    it('genres is empty', function () {});
-  });
+  // it('should open new book form ', function () {
+  //   cy.contains('create book');
+  // });
+  // describe('should not submit ', function () {
+  //   it('title is empty', function () {
+  //     cy.get('input:first').type('mluukkai');
+  //   });
+  //   it('author is empty', function () {});
+  //   it('published is empty ', function () {});
+  //   it('genres is empty', function () {});
+  // });
   describe('should submit ', function () {
     it('when all required fields have values', function () {
       cy.intercept(
@@ -48,6 +49,7 @@ describe('new book form', function () {
         genre: 'drama',
       };
       cy.createBook(newBook);
+      cy.wait(1000);
       cy.get('[data-testid=authors-menu-item]').click();
       cy.contains(newBook.author);
     });

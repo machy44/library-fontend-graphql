@@ -47,8 +47,6 @@ export const LoginForm = () => {
     }
   };
 
-  console.log({ result });
-
   return (
     <Form onSubmit={handleSubmit(submit)} data-testid="login-form">
       <Label htmlFor="name" className="mt-2">

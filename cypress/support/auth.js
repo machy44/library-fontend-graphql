@@ -13,6 +13,6 @@ Cypress.Commands.add('login', function ({ username, password }) {
     },
   }).then(({ body }) => {
     console.log({ body });
-    localStorage.setItem('library-user-token', JSON.stringify(body.data.login.value));
+    localStorage.setItem('library-user-token', body.data.login.value);
   });
 });
