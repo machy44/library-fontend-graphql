@@ -35,13 +35,19 @@ export const LoginForm = () => {
     }
   }, [result.data]); // eslint-disable-line
 
-  const submit = (data: IUser) => {
-    const { username, password } = data;
-    login({
-      variables: { username, password },
-    });
-    reset();
+  const submit = async (data: IUser) => {
+    try {
+      const { username, password } = data;
+      await login({
+        variables: { username, password },
+      });
+      reset();
+    } catch (e) {
+      console.error(e);
+    }
   };
+
+  console.log({ result });
 
   return (
     <Form onSubmit={handleSubmit(submit)} data-testid="login-form">
@@ -52,7 +58,7 @@ export const LoginForm = () => {
         data-testid="username-input"
         placeholder="Username"
         {...register('username')}
-        error={get(errors, 'username.message') || null}
+        error={get(errors, 'username.message') || result.error?.message || null}
       />
       <Label htmlFor="name" className="mt-2">
         password
@@ -62,7 +68,7 @@ export const LoginForm = () => {
         type="password"
         placeholder="Password"
         {...register('password')}
-        error={get(errors, 'password.message') || null}
+        error={get(errors, 'password.message') || result.error?.message || null}
       />
       <Button type="submit" className="mt-4 w-full" data-testid="login-submit">
         login
