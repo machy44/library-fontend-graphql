@@ -14,34 +14,14 @@ describe('new book form', function () {
   //   it('published is empty ', function () {});
   //   it('genres is empty', function () {});
   // });
-  describe('should submit ', function () {
-    it('when all required fields have values', function () {
-      cy.intercept(
-        {
-          method: 'POST',
-        },
-        [],
-      ).as('createBook');
-
-      const newBook = {
-        title: 'title',
-        author: 'author',
-        published: 1234,
-        genre: 'punk',
-      };
-
-      cy.createBook(newBook);
-      cy.get('[data-testid="create-book-submit"]').click();
-      cy.wait('@createBook').then((interception) => {
-        expect(interception.request.body.variables.author).to.equal(newBook.author);
-        expect(interception.request.body.variables.title).to.equal(newBook.title);
-        expect(interception.request.body.variables.published).to.equal(newBook.published);
-        expect(interception.request.body.variables.genres).to.have.all.members([newBook.genre]);
-      });
-    });
-  });
   describe('check cache after book creation', function () {
     it('all authors should be up to date', function () {
+      cy.intercept('POST', 'http://localhost:4000', function (req) {
+        if (req.body.operationName === 'addBook') {
+          req.alias = 'createBook';
+          req.continue();
+        }
+      });
       const newBook = {
         title: 'pero je gazda',
         author: 'pero deformero',
@@ -49,18 +29,25 @@ describe('new book form', function () {
         genre: 'drama',
       };
       cy.createBook(newBook);
-      cy.wait(1000);
+      cy.wait('@createBook');
       cy.get('[data-testid=authors-menu-item]').click();
       cy.contains(newBook.author);
     });
     it('all books should be up to date', function () {
+      cy.intercept('POST', 'http://localhost:4000', function (req) {
+        if (req.body.operationName === 'addBook') {
+          req.alias = 'createBook';
+          req.continue();
+        }
+      });
       const newBook = {
-        title: 'pero je gazda',
-        author: 'pero deformero',
+        title: 'pero je gazda 2',
+        author: 'pero deformero 2',
         published: '1954',
         genre: 'drama',
       };
       cy.createBook(newBook);
+      cy.wait('@createBook');
       cy.get('[data-testid=books-menu-item]').click();
       cy.contains(newBook.title);
     });

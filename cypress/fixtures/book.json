@@ -1,0 +1,18 @@
+{
+  "data": {
+    "addBook": {
+      "title": "author",
+      "published": 1234,
+      "author": {
+        "name": "author",
+        "id": "637c89e894599093fdb9022f",
+        "born": null,
+        "bookCount": 1,
+        "__typename": "Author"
+      },
+      "genres": ["punk"],
+      "id": "637c89e894599093fdb90231",
+      "__typename": "Book"
+    }
+  }
+}
