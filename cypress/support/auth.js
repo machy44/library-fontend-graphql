@@ -16,3 +16,19 @@ Cypress.Commands.add('login', function ({ username, password }) {
     localStorage.setItem('library-user-token', body.data.login.value);
   });
 });
+
+Cypress.Commands.add('seedTestDatabase', function () {
+  const seedTestDatabase = `mutation {
+  seedTestDatabase
+}`;
+  cy.request({
+    method: 'POST',
+    url: 'http://localhost:4000',
+    headers: {
+      authorization: localStorage.getItem('library-user-token'),
+    },
+    body: {
+      query: seedTestDatabase,
+    },
+  });
+});

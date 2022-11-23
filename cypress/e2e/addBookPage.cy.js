@@ -1,6 +1,7 @@
 describe('new book form', function () {
   beforeEach(function () {
     cy.login({ username: 'test', password: 'test' });
+    cy.seedTestDatabase();
     cy.visit('http://localhost:3000/add');
   });
   // it('should open new book form ', function () {
