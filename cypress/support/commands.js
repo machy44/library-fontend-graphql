@@ -55,3 +55,7 @@ Cypress.Commands.add('editAuthor', function ({ name, born }) {
 Cypress.Commands.add('getByTestId', function (selector, ...args) {
   return cy.get(`[data-testid=${selector}]`, ...args);
 });
+
+Cypress.Commands.add('testIdStarts', function (selector, ...args) {
+  return cy.get(`[data-testid^=${selector}]`, ...args);
+});

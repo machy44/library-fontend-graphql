@@ -25,6 +25,7 @@ export function ReactSelect<T extends Record<string, any>>({
       render={({ field: { onChange, value } }) => {
         return (
           <Select
+            classNamePrefix="react-select"
             options={options}
             onChange={(e) => {
               if (e) {

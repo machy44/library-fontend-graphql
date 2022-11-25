@@ -11,7 +11,6 @@ import { ReactSelect } from '../ui/select/ReactSelect';
 import { IAuthor } from '../types';
 import { Error } from '../ui/Error';
 import { convertDataToOptions } from '../ui/select/utils';
-import { useAuth } from '../auth';
 
 const schemaValidation = yup.object().shape({
   name: yup.string().required('Name is required'),

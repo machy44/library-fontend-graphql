@@ -4,17 +4,6 @@ describe('new book form', function () {
     cy.seedTestDatabase();
     cy.visit('http://localhost:3000/add');
   });
-  // it('should open new book form ', function () {
-  //   cy.contains('create book');
-  // });
-  // describe('should not submit ', function () {
-  //   it('title is empty', function () {
-  //     cy.get('input:first').type('mluukkai');
-  //   });
-  //   it('author is empty', function () {});
-  //   it('published is empty ', function () {});
-  //   it('genres is empty', function () {});
-  // });
   describe('check cache after book creation', function () {
     it('all authors should be up to date', function () {
       cy.intercept('POST', 'http://localhost:4000', function (req) {
