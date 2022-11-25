@@ -11,6 +11,10 @@ describe('authors page', () => {
   it('table should have 5 rows ', function () {
     cy.testIdStarts(AuthorsPage.authorRow).should('have.length', 5);
   });
+  it.only('select should have 5 values ', function () {
+    cy.get('.react-select__control').click();
+    cy.get('.react-select__option').should('have.length', 5);
+  });
   describe('edit author', function () {
     it('should compare table and select options and values have to be same ', function () {
       cy.intercept('POST', 'http://localhost:4000', function (req) {
