@@ -38,6 +38,10 @@ describe('authors page', () => {
         cy.get('td').eq(1).contains(1954);
       });
     });
-    // it('amount should be number testcase when you put text in input field', function () {});
+    it.only('amount should be 4 characters long', function () {
+      cy.getByTestId(AuthorsPage.bornInput).type(194);
+      cy.getByTestId(AuthorsPage.editForm).submit();
+      cy.getByTestId(AuthorsPage.editForm).contains('Must be 4 characters long');
+    });
   });
 });
