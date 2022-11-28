@@ -3,7 +3,7 @@
 import { Navigation } from '../components';
 
 describe('navigation', function () {
-  describe.only('logged out state', () => {
+  describe('logged out state', () => {
     beforeEach(() => {
       cy.visit('http://localhost:3000');
     });
@@ -22,7 +22,13 @@ describe('navigation', function () {
       cy.seedTestDatabase();
       cy.visit('http://localhost:3000');
     });
-    it('should have logout, addBook, RecommendBooks', () => {});
-    it('should have edit authors in authors page when logged in', () => {});
+    it('should have logout, addBook, RecommendBooks', () => {
+      cy.getByTestId(Navigation.authorsItem).should('exist');
+      cy.getByTestId(Navigation.booksItem).should('exist');
+      cy.getByTestId(Navigation.loginItem).should('not.exist');
+      cy.getByTestId(Navigation.addBookItem).should('exist');
+      cy.getByTestId(Navigation.recommendItem).should('exist');
+      cy.getByTestId(Navigation.logoutItem).should('exist');
+    });
   });
 });
