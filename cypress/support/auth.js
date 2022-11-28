@@ -25,7 +25,7 @@ Cypress.Commands.add('seedTestDatabase', function () {
     method: 'POST',
     url: 'http://localhost:4000',
     headers: {
-      authorization: localStorage.getItem('library-user-token'),
+      Authorization: `Bearer ${localStorage.getItem('library-user-token')}`,
     },
     body: {
       query: seedTestDatabase,

@@ -1,3 +1,3 @@
-export { LoginForm } from '../components/LoginForm';
-export { Navigation } from '../components/Navigation';
-export { AuthorsPage } from '../components/AuthorsPage';
+export { LoginForm } from './LoginForm';
+export { Navigation } from './Navigation';
+export { AuthorsPage } from './AuthorsPage';

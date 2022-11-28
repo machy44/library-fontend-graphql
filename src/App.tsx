@@ -32,7 +32,7 @@ const AppMenu = () => {
       <Link to={ROUTES.books} text="books" data-testid="books-menu-item" />
       {token && <Link to={ROUTES.add} text="add book" data-testid="add-book-menu-item" />}
       {!token && <Link to={ROUTES.login} text="login" data-testid="login-menu-item" />}
-      {token && <Link to={ROUTES.recommend} text="recommend" data-testid="logout-menu-item" />}
+      {token && <Link to={ROUTES.recommend} text="recommend" data-testid="recommend-menu-item" />}
       {token && (
         <Link to={ROUTES.authors} text="logout" onClick={logout} data-testid="logout-menu-item" />
       )}
