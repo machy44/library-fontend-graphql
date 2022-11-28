@@ -11,7 +11,7 @@ describe('authors page', () => {
   it('table should have 5 rows ', function () {
     cy.testIdStarts(AuthorsPage.authorRow).should('have.length', 5);
   });
-  it.only('select should have 5 values ', function () {
+  it('select should have 5 values ', function () {
     cy.get('.react-select__control').click();
     cy.get('.react-select__option').should('have.length', 5);
   });
@@ -42,7 +42,7 @@ describe('authors page', () => {
         cy.get('td').eq(1).contains(1954);
       });
     });
-    it.only('amount should be 4 characters long', function () {
+    it('amount should be 4 characters long', function () {
       cy.getByTestId(AuthorsPage.bornInput).type(194);
       cy.getByTestId(AuthorsPage.editForm).submit();
       cy.getByTestId(AuthorsPage.editForm).contains('Must be 4 characters long');
