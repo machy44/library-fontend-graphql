@@ -3,11 +3,18 @@
 import { AuthorsPage } from '../components';
 
 describe('authors page', () => {
+  describe('logout state', function () {
+    beforeEach(function () {
+      cy.visit('http://localhost:3000');
+    });
+    it('table should exists but edit form should not ', function () {});
+  });
   beforeEach(function () {
     cy.login({ username: 'test', password: 'test' });
     cy.seedTestDatabase();
     cy.visit('http://localhost:3000');
   });
+  it('table and edit form should exists ', function () {});
   it('table should have 5 rows ', function () {
     cy.testIdStarts(AuthorsPage.authorRow).should('have.length', 5);
   });

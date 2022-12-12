@@ -10,3 +10,5 @@ for client testing:
 Take a look how to test subscriptions?
 
 https://kentcdodds.com/blog/common-mistakes-with-react-testing-library
+
+TODO: finish cypress tests
