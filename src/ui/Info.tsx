@@ -3,7 +3,7 @@ import React from 'react';
 export const Info = ({ content }: { content: React.ReactNode }) => {
   return content ? (
     <div
-      className="flex items-center bg-blue-500 text-white text-sm font-bold px-4 py-3"
+      className="flex items-center bg-blue-500 text-white text-sm font-bold px-4 py-3 max-h-5"
       role="alert">
       <svg
         className="fill-current w-4 h-4 mr-2"
